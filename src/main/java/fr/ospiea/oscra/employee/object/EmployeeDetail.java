@@ -8,12 +8,11 @@ import java.io.Serializable;
  */
 @Embeddable
 public class EmployeeDetail implements Serializable {
+
+    private String phoneNumber;
     private String birthday;
-
     private String position;
-
     private String fixNumber;
-
     @Enumerated(EnumType.STRING)
     private Civility civility;
 
