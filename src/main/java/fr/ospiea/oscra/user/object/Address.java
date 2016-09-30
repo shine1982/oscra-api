@@ -1,9 +1,6 @@
-package fr.ospiea.oscra.employee.object;
-
-import fr.ospiea.oscra.common.AbstractEntity;
+package fr.ospiea.oscra.user.object;
 
 import javax.persistence.Embeddable;
-import javax.persistence.Entity;
 import java.io.Serializable;
 
 /**
@@ -11,6 +8,13 @@ import java.io.Serializable;
  */
 @Embeddable
 public class Address implements Serializable {
+
+    private String roadNumber;
+    private String road;
+    private String supplementaryAddress;
+    private String postalCode;
+    private String city;
+
     public String getRoadNumber() {
         return roadNumber;
     }
@@ -30,15 +34,5 @@ public class Address implements Serializable {
     public String getCity() {
         return city;
     }
-
-    private String roadNumber;
-
-    private String road;
-
-    private String supplementaryAddress;
-
-    private String postalCode;
-
-    private String city;
 
 }

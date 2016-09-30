@@ -43,6 +43,7 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
                     .passwordEncoder(passwordEncoder())
                     .usersByUsernameQuery(getUserQuery())
                     .authoritiesByUsernameQuery(getAuthoritiesQuery());
+        //authbuilder.userDetailsService();
     }
 
     @Override
@@ -66,16 +67,15 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
     }
 
     private String getUserQuery(){
-        return "select email,password,enabled from employee where email=?";
+        return "select username,password,enabled from user where username=?";
     }
 
     private String getAuthoritiesQuery(){
-        return "select email,role from employee where email=?";
+        return "select username,role from user where username=?";
     }
 
     @Bean
     public PasswordEncoder passwordEncoder(){
-        PasswordEncoder encoder = new BCryptPasswordEncoder();
-        return encoder;
+        return  new BCryptPasswordEncoder();
     }
 }
