@@ -28,8 +28,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/findById", method= RequestMethod.GET)
-    public User findById(@RequestParam Long employeeId){
-        return userService.findById(employeeId);
+    public User findById(@RequestParam Long userId){
+        return userService.findById(userId);
     }
 
     @RequestMapping(value = "/update", method= RequestMethod.POST)
@@ -38,8 +38,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/delete", method= RequestMethod.POST)
-    public void delete(@RequestParam Long employeeId){
-        userService.delete(employeeId);
+    public void delete(@RequestParam Long userId){
+        userService.delete(userId);
     }
 
 
