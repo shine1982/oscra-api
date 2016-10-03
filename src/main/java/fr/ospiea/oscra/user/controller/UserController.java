@@ -11,7 +11,7 @@ import java.util.List;
  * Created by fqin on 18/09/2016.
  */
 @RestController
-@RequestMapping("/api/employees")
+@RequestMapping("/api/users")
 public class UserController {
 
     @Autowired

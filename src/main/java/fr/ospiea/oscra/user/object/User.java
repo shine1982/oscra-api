@@ -5,9 +5,12 @@ import fr.ospiea.oscra.common.AbstractEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 public class User extends AbstractEntity implements Serializable{
+
+    private long id;
 
     private String username;
     private String firstName;
@@ -19,29 +22,23 @@ public class User extends AbstractEntity implements Serializable{
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @Embedded
-    private Address address;
+    private String roadNumber;
+    private String road;
+    private String supplementaryAddress;
+    private String postalCode;
+    private String city;
 
-    @Embedded
-    private UserDetail userDetail;
+    private String phoneNumber;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date birthday;
+    private String position;
+    private String fixNumber;
+    @Enumerated(EnumType.STRING)
+    private Civility civility;
 
-    protected User() {}
 
-    public User(String email, String password, boolean enabled, String firstName, String lastName) {
-        this.email = email;
-        this.password = password;
-        this.enabled = enabled;
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
-
-    public void copyFrom(User user){
-
-        this.email = user.getEmail();
-        this.password = user.getPassword();
-        this.enabled = user.getEnabled();
-        this.firstName = user.getFirstName();
-        this.lastName = user.getLastName();
+    public long getId() {
+        return id;
     }
 
     public String getUsername() {
@@ -68,12 +65,12 @@ public class User extends AbstractEntity implements Serializable{
         this.lastName = lastName;
     }
 
-    public boolean getEnabled() {
-        return enabled;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -84,50 +81,166 @@ public class User extends AbstractEntity implements Serializable{
         this.password = password;
     }
 
-    public Long getId() {
-		return id;
-	}
-
-    public String getEmail() {
-        return email;
+    public boolean isEnabled() {
+        return enabled;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public UserDetail getUserDetail() {
-        return userDetail;
-    }
-
-    public void setUserDetail(UserDetail userDetail) {
-        this.userDetail = userDetail;
+    public Role getRole() {
+        return role;
     }
 
     public void setRole(Role role) {
         this.role = role;
     }
 
+    public String getRoadNumber() {
+        return roadNumber;
+    }
+
+    public void setRoadNumber(String roadNumber) {
+        this.roadNumber = roadNumber;
+    }
+
+    public String getRoad() {
+        return road;
+    }
+
+    public void setRoad(String road) {
+        this.road = road;
+    }
+
+    public String getSupplementaryAddress() {
+        return supplementaryAddress;
+    }
+
+    public void setSupplementaryAddress(String supplementaryAddress) {
+        this.supplementaryAddress = supplementaryAddress;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public String getFixNumber() {
+        return fixNumber;
+    }
+
+    public void setFixNumber(String fixNumber) {
+        this.fixNumber = fixNumber;
+    }
+
+    public Civility getCivility() {
+        return civility;
+    }
+
+    public void setCivility(Civility civility) {
+        this.civility = civility;
+    }
+
+    protected User() {}
+
+    public User(String username, String firstName, String lastName, String email, String password, boolean enabled,
+                Role role, String roadNumber, String road, String supplementaryAddress, String postalCode, String city,
+                String phoneNumber, Date birthday, String position, String fixNumber, Civility civility) {
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.enabled = enabled;
+        this.role = role;
+        this.roadNumber = roadNumber;
+        this.road = road;
+        this.supplementaryAddress = supplementaryAddress;
+        this.postalCode = postalCode;
+        this.city = city;
+        this.phoneNumber = phoneNumber;
+        this.birthday = birthday;
+        this.position = position;
+        this.fixNumber = fixNumber;
+        this.civility = civility;
+    }
+
+    public void copyFrom(User user){
+        this.username = user.getUsername();
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.email = user.getEmail();
+        this.password = user.getPassword();
+        this.enabled = user.isEnabled();
+        this.role = this.getRole();
+        this.roadNumber = this.getRoadNumber();
+        this.road = this.getRoad();
+        this.supplementaryAddress = this.getSupplementaryAddress();
+        this.postalCode = this.getPostalCode();
+        this.city = this.getCity();
+        this.phoneNumber = this.getPhoneNumber();
+        this.birthday = this.getBirthday();
+        this.position = this.getPosition();
+        this.fixNumber = this.getFixNumber();
+        this.civility = this.getCivility();
+    }
 
     @Override
     public String toString() {
-        return "Employee{" +
-                "firstName='" + firstName + '\'' +
+        return "User{" +
+                "username='" + username + '\'' +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", enabled=" + enabled +
                 ", role=" + role +
-                ", address=" + address +
-                ", employeeDetail=" + userDetail +
+                ", roadNumber='" + roadNumber + '\'' +
+                ", road='" + road + '\'' +
+                ", supplementaryAddress='" + supplementaryAddress + '\'' +
+                ", postalCode='" + postalCode + '\'' +
+                ", city='" + city + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", birthday=" + birthday +
+                ", position='" + position + '\'' +
+                ", fixNumber='" + fixNumber + '\'' +
+                ", civility=" + civility +
                 '}';
     }
 
