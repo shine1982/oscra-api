@@ -178,7 +178,7 @@ public class User extends AbstractEntity implements Serializable{
     }
 
     protected User() {}
-
+/*
     public User(String username, String firstName, String lastName, String email, String password, boolean enabled,
                 Role role, String roadNumber, String road, String supplementaryAddress, String postalCode, String city,
                 String phoneNumber, Date birthday, String position, String fixNumber, Civility civility) {
@@ -200,7 +200,7 @@ public class User extends AbstractEntity implements Serializable{
         this.fixNumber = fixNumber;
         this.civility = civility;
     }
-
+*/
     public void copyFrom(User user){
         this.username = user.getUsername();
         this.firstName = user.getFirstName();
@@ -208,17 +208,17 @@ public class User extends AbstractEntity implements Serializable{
         this.email = user.getEmail();
         this.password = user.getPassword();
         this.enabled = user.isEnabled();
-        this.role = this.getRole();
-        this.roadNumber = this.getRoadNumber();
-        this.road = this.getRoad();
-        this.supplementaryAddress = this.getSupplementaryAddress();
-        this.postalCode = this.getPostalCode();
-        this.city = this.getCity();
-        this.phoneNumber = this.getPhoneNumber();
-        this.birthday = this.getBirthday();
-        this.position = this.getPosition();
-        this.fixNumber = this.getFixNumber();
-        this.civility = this.getCivility();
+        this.role = user.getRole();
+        this.roadNumber = user.getRoadNumber();
+        this.road = user.getRoad();
+        this.supplementaryAddress = user.getSupplementaryAddress();
+        this.postalCode = user.getPostalCode();
+        this.city = user.getCity();
+        this.phoneNumber = user.getPhoneNumber();
+        this.birthday = user.getBirthday();
+        this.position = user.getPosition();
+        this.fixNumber = user.getFixNumber();
+        this.civility = user.getCivility();
     }
 
     @Override
@@ -228,8 +228,6 @@ public class User extends AbstractEntity implements Serializable{
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", enabled=" + enabled +
                 ", role=" + role +
                 ", roadNumber='" + roadNumber + '\'' +
                 ", road='" + road + '\'' +
