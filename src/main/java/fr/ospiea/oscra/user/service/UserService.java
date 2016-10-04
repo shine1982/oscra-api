@@ -17,7 +17,9 @@ public class UserService {
     @Autowired
     private UserDao userDao;
 
+
     public User add(User user) {
+
         return userDao.save(user);
     }
 
@@ -27,8 +29,13 @@ public class UserService {
         return users;
     }
 
-    public User findById(Long userId) {
-        return userDao.findOne(userId);
+    public User findById(Long employeeId) {
+        return userDao.findOne(employeeId);
+    }
+
+    public User findByUserame(String email) {
+
+        return userDao.findByEmail(email);
     }
 
     public User update(User user) {
@@ -37,7 +44,7 @@ public class UserService {
         return userDao.save(existedUser);
     }
 
-    public void delete(Long userId) {
-        userDao.delete(userId);
+    public void delete(Long employeeId) {
+        userDao.delete(employeeId);
     }
 }
