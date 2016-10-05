@@ -34,7 +34,6 @@ public class UserService {
     }
 
     public User findByUserame(String email) {
-
         return userDao.findByEmail(email);
     }
 
@@ -47,4 +46,5 @@ public class UserService {
     public void delete(Long userId) {
         userDao.delete(userId);
     }
+
 }

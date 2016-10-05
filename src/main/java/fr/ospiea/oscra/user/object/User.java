@@ -5,10 +5,11 @@ import fr.ospiea.oscra.common.AbstractEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.util.Date;
 
 @Entity
-public class User extends AbstractEntity implements Serializable{
+public class User extends AbstractEntity implements Serializable, Cloneable{
 
     private long id;
 
@@ -178,47 +179,16 @@ public class User extends AbstractEntity implements Serializable{
     }
 
     protected User() {}
-/*
-    public User(String username, String firstName, String lastName, String email, String password, boolean enabled,
-                Role role, String roadNumber, String road, String supplementaryAddress, String postalCode, String city,
-                String phoneNumber, Date birthday, String position, String fixNumber, Civility civility) {
-        this.username = username;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.enabled = enabled;
-        this.role = role;
-        this.roadNumber = roadNumber;
-        this.road = road;
-        this.supplementaryAddress = supplementaryAddress;
-        this.postalCode = postalCode;
-        this.city = city;
-        this.phoneNumber = phoneNumber;
-        this.birthday = birthday;
-        this.position = position;
-        this.fixNumber = fixNumber;
-        this.civility = civility;
-    }
-*/
+
     public void copyFrom(User user){
-        this.username = user.getUsername();
-        this.firstName = user.getFirstName();
-        this.lastName = user.getLastName();
-        this.email = user.getEmail();
-        this.password = user.getPassword();
-        this.enabled = user.isEnabled();
-        this.role = user.getRole();
-        this.roadNumber = user.getRoadNumber();
-        this.road = user.getRoad();
-        this.supplementaryAddress = user.getSupplementaryAddress();
-        this.postalCode = user.getPostalCode();
-        this.city = user.getCity();
-        this.phoneNumber = user.getPhoneNumber();
-        this.birthday = user.getBirthday();
-        this.position = user.getPosition();
-        this.fixNumber = user.getFixNumber();
-        this.civility = user.getCivility();
+        Field [] attributes =  user.getClass().getDeclaredFields();
+        for (Field field: attributes){
+            try {
+                field.set(this,field.get(user));
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -241,6 +211,8 @@ public class User extends AbstractEntity implements Serializable{
                 ", civility=" + civility +
                 '}';
     }
+
+
 
 }
 
