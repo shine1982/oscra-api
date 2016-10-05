@@ -9,7 +9,7 @@ import java.lang.reflect.Field;
 import java.util.Date;
 
 @Entity
-public class User extends AbstractEntity implements Serializable, Cloneable{
+public class User extends AbstractEntity implements Serializable{
 
     private long id;
 
@@ -211,8 +211,6 @@ public class User extends AbstractEntity implements Serializable, Cloneable{
                 ", civility=" + civility +
                 '}';
     }
-
-
 
 }
 
