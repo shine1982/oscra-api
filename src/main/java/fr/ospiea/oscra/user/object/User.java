@@ -190,27 +190,5 @@ public class User extends AbstractEntity implements Serializable{
             }
         }
     }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "username='" + username + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", role=" + role +
-                ", roadNumber='" + roadNumber + '\'' +
-                ", road='" + road + '\'' +
-                ", supplementaryAddress='" + supplementaryAddress + '\'' +
-                ", postalCode='" + postalCode + '\'' +
-                ", city='" + city + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", birthday=" + birthday +
-                ", position='" + position + '\'' +
-                ", fixNumber='" + fixNumber + '\'' +
-                ", civility=" + civility +
-                '}';
-    }
-
 }
 
