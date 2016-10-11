@@ -1,6 +1,8 @@
 package fr.ospiea.oscra.common;
 
 import javax.persistence.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.Date;
 
 /**
@@ -30,8 +32,5 @@ public abstract class AbstractEntity {
     protected void onUpdate() {
         updated = new Date();
     }
-
-
-
 
 }
