@@ -5,6 +5,5 @@ package fr.ospiea.oscra.user.object;
  */
 public enum Role {
     USER,
-    ADMIN,
-    SUPERADMIN;
+    ADMIN
 }

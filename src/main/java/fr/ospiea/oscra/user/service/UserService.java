@@ -29,12 +29,11 @@ public class UserService {
         return users;
     }
 
-    public User findById(Long employeeId) {
-        return userDao.findOne(employeeId);
+    public User findById(Long userId) {
+        return userDao.findOne(userId);
     }
 
     public User findByUserame(String email) {
-
         return userDao.findByEmail(email);
     }
 
@@ -44,7 +43,8 @@ public class UserService {
         return userDao.save(existedUser);
     }
 
-    public void delete(Long employeeId) {
-        userDao.delete(employeeId);
+    public void delete(Long userId) {
+        userDao.delete(userId);
     }
+
 }

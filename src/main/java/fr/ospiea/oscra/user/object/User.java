@@ -5,6 +5,7 @@ import fr.ospiea.oscra.common.AbstractEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.util.Date;
 
 @Entity
@@ -179,70 +180,15 @@ public class User extends AbstractEntity implements Serializable{
 
     protected User() {}
 
-    public User(String username, String firstName, String lastName, String email, String password, boolean enabled,
-                Role role, String roadNumber, String road, String supplementaryAddress, String postalCode, String city,
-                String phoneNumber, Date birthday, String position, String fixNumber, Civility civility) {
-        this.username = username;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.enabled = enabled;
-        this.role = role;
-        this.roadNumber = roadNumber;
-        this.road = road;
-        this.supplementaryAddress = supplementaryAddress;
-        this.postalCode = postalCode;
-        this.city = city;
-        this.phoneNumber = phoneNumber;
-        this.birthday = birthday;
-        this.position = position;
-        this.fixNumber = fixNumber;
-        this.civility = civility;
-    }
-
     public void copyFrom(User user){
-        this.username = user.getUsername();
-        this.firstName = user.getFirstName();
-        this.lastName = user.getLastName();
-        this.email = user.getEmail();
-        this.password = user.getPassword();
-        this.enabled = user.isEnabled();
-        this.role = this.getRole();
-        this.roadNumber = this.getRoadNumber();
-        this.road = this.getRoad();
-        this.supplementaryAddress = this.getSupplementaryAddress();
-        this.postalCode = this.getPostalCode();
-        this.city = this.getCity();
-        this.phoneNumber = this.getPhoneNumber();
-        this.birthday = this.getBirthday();
-        this.position = this.getPosition();
-        this.fixNumber = this.getFixNumber();
-        this.civility = this.getCivility();
+        Field [] attributes =  user.getClass().getDeclaredFields();
+        for (Field field: attributes){
+            try {
+                field.set(this,field.get(user));
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
     }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "username='" + username + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", enabled=" + enabled +
-                ", role=" + role +
-                ", roadNumber='" + roadNumber + '\'' +
-                ", road='" + road + '\'' +
-                ", supplementaryAddress='" + supplementaryAddress + '\'' +
-                ", postalCode='" + postalCode + '\'' +
-                ", city='" + city + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", birthday=" + birthday +
-                ", position='" + position + '\'' +
-                ", fixNumber='" + fixNumber + '\'' +
-                ", civility=" + civility +
-                '}';
-    }
-
 }
 
