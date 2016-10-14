@@ -17,7 +17,7 @@ public class Activity extends AbstractEntity implements Serializable {
     private long id;
     private Date start;
     private Date end;
-    private String Description;
+    private String description;
 
     /* Here the fetch type should be eager absolutely.
      * Otherwise, a json serialization problem occurs
@@ -60,11 +60,11 @@ public class Activity extends AbstractEntity implements Serializable {
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        description = description;
     }
 
     public void copyFrom(Activity activity){
