@@ -2,7 +2,6 @@ package fr.ospiea.oscra.user.controller;
 
 import fr.ospiea.oscra.user.object.User;
 import fr.ospiea.oscra.user.service.UserService;
-import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +28,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/findById", method= RequestMethod.GET)
-    public User findById(@RequestParam Long userId){
+    public User findById(@RequestParam long userId){
         return userService.findById(userId);
     }
 
@@ -39,9 +38,10 @@ public class UserController {
     }
 
     @RequestMapping(value = "/delete", method= RequestMethod.POST)
-    public void delete(@RequestParam Long userId){
+    public void delete(@RequestParam long userId){
         userService.delete(userId);
     }
+
 
 
 }
