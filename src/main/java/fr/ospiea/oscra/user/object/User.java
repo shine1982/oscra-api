@@ -4,6 +4,7 @@ package fr.ospiea.oscra.user.object;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import fr.ospiea.oscra.activity.object.Activity;
 import fr.ospiea.oscra.common.AbstractEntity;
+import fr.ospiea.oscra.cra.object.Cra;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -38,6 +39,17 @@ public class User extends AbstractEntity implements Serializable{
     private String fixNumber;
     @Enumerated(EnumType.STRING)
     private Civility civility;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL)
+    private List<Cra> cras;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "validator", cascade = CascadeType.ALL)
+    private List<Cra> adminCheckCras;
+
+
+/*
     @JsonIgnore
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
     private List<Activity> activities;
@@ -57,6 +69,7 @@ public class User extends AbstractEntity implements Serializable{
         }
         return false;
     }
+    */
 
     public long getId() {
         return id;
@@ -199,6 +212,22 @@ public class User extends AbstractEntity implements Serializable{
     }
 
     protected User() {}
+
+    public List<Cra> getCras() {
+        return cras;
+    }
+
+    public void setCras(List<Cra> cras) {
+        this.cras = cras;
+    }
+
+    public List<Cra> getAdminCheckCras() {
+        return adminCheckCras;
+    }
+
+    public void setAdminCheckCras(List<Cra> adminCheckCras) {
+        this.adminCheckCras = adminCheckCras;
+    }
 
     public void copyFrom(User user){
         Field [] attributes =  user.getClass().getDeclaredFields();

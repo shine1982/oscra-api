@@ -18,6 +18,7 @@ public class ActivityController {
     @Autowired
     private ActivityService activityService;
 
+    /*
     @RequestMapping(value = "/all", method= RequestMethod.GET)
     public List<Activity> all(@RequestParam Long userId){
         return activityService.findAll(userId);
@@ -28,7 +29,7 @@ public class ActivityController {
         return activityService.addActivityToUser(userId, activity);
 
     }
-
+*/
     @RequestMapping(value = "/findById", method= RequestMethod.GET)
     public Activity findById(@RequestParam Long activityId){
         return activityService.findById(activityId);

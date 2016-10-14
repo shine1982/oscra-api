@@ -3,9 +3,7 @@ package fr.ospiea.oscra.cra.controller;
 import fr.ospiea.oscra.cra.object.Cra;
 import fr.ospiea.oscra.cra.service.CraService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,32 +17,33 @@ public class CraController {
     @Autowired
     private CraService craService;
 
-    @RequestMapping(value = "/all", method= RequestMethod.GET)
-    public List<Cra> all(){
-        return craService.findAll();
+    @RequestMapping(value = "/user/all", method= RequestMethod.GET)
+    public List<Cra> userall(@RequestParam long providerId){
+        return craService.findAllByProviderId(providerId);
     }
 
-/*
+    @RequestMapping(value = "/admin/all", method= RequestMethod.GET)
+    public List<Cra> adminall(@RequestParam long validatorId){
+        return craService.findAllByValidatorId(validatorId);
+    }
+
     @RequestMapping(value = "/add", method= RequestMethod.POST)
-    public User add(@RequestBody User user){
-        return userService.add(user);
+    public Cra add(@RequestParam long providerId, @RequestParam long validatorId, @RequestBody Cra cra){
+        return craService.add(providerId, validatorId, cra);
     }
-
-
 
     @RequestMapping(value = "/findById", method= RequestMethod.GET)
-    public User findById(@RequestParam Long userId){
-        return userService.findById(userId);
+    public Cra findById(@RequestParam Long craId){
+        return craService.findById(craId);
     }
 
     @RequestMapping(value = "/update", method= RequestMethod.POST)
-    public User update(@RequestBody User user){
-        return userService.update(user);
+    public Cra update(@RequestParam long providerId, @RequestParam long validatorId, @RequestBody Cra cra){
+        return craService.update(cra, providerId, validatorId);
     }
 
     @RequestMapping(value = "/delete", method= RequestMethod.POST)
-    public void delete(@RequestParam Long userId){
-        userService.delete(userId);
+    public void delete(@RequestParam Long craId){
+        craService.delete(craId);
     }
-  */
 }

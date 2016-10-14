@@ -28,6 +28,11 @@ public class Application {
         SpringApplication.run(Application.class);
     }
 
+
+    /*
+     * Swagger interface
+     * http://localhost:8080/api/swagger-ui.html
+     */
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)

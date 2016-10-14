@@ -22,7 +22,7 @@ public class ActivityService {
     @Autowired
     private UserDao userDao;
 
-
+/*
     public List<Activity> findAll(long userId) {
         User owner = userDao.findOne(userId);
         List<Activity> activities = owner.getActivities();
@@ -39,7 +39,7 @@ public class ActivityService {
             return null;
         }
     }
-
+*/
     public Activity findById(long activityId){
         return activityDao.findOne(activityId);
     }
