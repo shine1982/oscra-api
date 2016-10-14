@@ -1,6 +1,7 @@
 package fr.ospiea.oscra.activity.object;
 
 import fr.ospiea.oscra.common.AbstractEntity;
+import fr.ospiea.oscra.cra.object.Cra;
 import fr.ospiea.oscra.user.object.User;
 
 import javax.persistence.*;
@@ -21,16 +22,17 @@ public class Activity extends AbstractEntity implements Serializable {
     /* Here the fetch type should be eager absolutely.
      * Otherwise, a json serialization problem occurs
      * */
-    @ManyToOne(fetch= FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name ="owner_id")
-    private User owner;
+    @ManyToOne(fetch= FetchType.EAGER,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH})
+    @JoinColumn(name ="cra_id")
+    private Cra cra;
 
-    public User getOwner() {
-        return owner;
+    public Cra getCra() {
+        return cra;
     }
 
-    public void setOwner(User owner) {
-        this.owner = owner;
+    public void setCra(Cra cra) {
+        this.cra = cra;
     }
 
     public long getId() {

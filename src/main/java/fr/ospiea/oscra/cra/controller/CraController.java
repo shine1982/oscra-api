@@ -33,7 +33,7 @@ public class CraController {
     }
 
     @RequestMapping(value = "/findById", method= RequestMethod.GET)
-    public Cra findById(@RequestParam Long craId){
+    public Cra findById(@RequestParam long craId){
         return craService.findById(craId);
     }
 
@@ -43,7 +43,7 @@ public class CraController {
     }
 
     @RequestMapping(value = "/delete", method= RequestMethod.POST)
-    public void delete(@RequestParam Long craId){
+    public void delete(@RequestParam long craId){
         craService.delete(craId);
     }
 }

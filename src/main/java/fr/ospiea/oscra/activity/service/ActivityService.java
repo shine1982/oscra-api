@@ -2,6 +2,8 @@ package fr.ospiea.oscra.activity.service;
 
 import fr.ospiea.oscra.activity.dao.ActivityDao;
 import fr.ospiea.oscra.activity.object.Activity;
+import fr.ospiea.oscra.cra.dao.CraDao;
+import fr.ospiea.oscra.cra.object.Cra;
 import fr.ospiea.oscra.user.dao.UserDao;
 import fr.ospiea.oscra.user.object.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,43 +22,42 @@ public class ActivityService {
     private ActivityDao activityDao;
 
     @Autowired
-    private UserDao userDao;
+    private CraDao craDao;
 
-/*
-    public List<Activity> findAll(long userId) {
-        User owner = userDao.findOne(userId);
-        List<Activity> activities = owner.getActivities();
+    public List<Activity> findAll(long craId) {
+        Cra cra = craDao.findOne(craId);
+        List<Activity> activities = cra.getActivities();
         return activities;
     }
 
-    public Activity addActivityToUser(long userId, Activity activity){
 
-        User owner = userDao.findOne(userId);
-        if (!owner.getActivities().contains(activity)){
-            activity.setOwner(owner);
+    public Activity add(long craId, Activity activity){
+        Cra cra = craDao.findOne(craId);
+        if (!cra.getActivities().contains(activity)){
+            activity.setCra(cra);
             return activityDao.save(activity);
         }else{
             return null;
         }
     }
-*/
+
     public Activity findById(long activityId){
         return activityDao.findOne(activityId);
     }
 
-    public Activity update(Activity activity,long userId) {
+    public Activity update(Activity activity,long craId) {
         Activity existedActivity = activityDao.findOne(activity.getId());
-        User origOwner = existedActivity.getOwner();
-        if (userId==origOwner.getId()) {
-            existedActivity.copyFrom(activity);
-            existedActivity.setOwner(origOwner);
-            return activityDao.save(existedActivity);
-        }else return null;
+        Cra cra = existedActivity.getCra();
+        existedActivity.copyFrom(activity);
+        existedActivity.setCra(cra);
+        return activityDao.save(existedActivity);
+
     }
 
     public void delete(long activityId) {
         activityDao.delete(activityId);
     }
+
 
 }
 

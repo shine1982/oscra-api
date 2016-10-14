@@ -1,11 +1,14 @@
 package fr.ospiea.oscra.cra.object;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import fr.ospiea.oscra.activity.object.Activity;
 import fr.ospiea.oscra.common.AbstractEntity;
 import fr.ospiea.oscra.user.object.User;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.util.List;
 
 /**
  * Created by taozheng on 13/10/2016.
@@ -17,14 +20,27 @@ public class Cra extends AbstractEntity implements Serializable {
     private boolean validated;
 
 
-    @ManyToOne(fetch= FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch= FetchType.EAGER,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name ="provider_id")
     private User provider;
 
-    @ManyToOne(fetch= FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch= FetchType.EAGER,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name ="validator_id")
     private User validator;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "cra", cascade = CascadeType.ALL)
+    private List<Activity> activities;
+
+    public List<Activity> getActivities() {
+        return activities;
+    }
+
+    public void setActivities(List<Activity> activities) {
+        this.activities = activities;
+    }
 
     public long getId() {
         return id;
