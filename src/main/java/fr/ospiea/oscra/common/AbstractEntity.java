@@ -31,7 +31,4 @@ public abstract class AbstractEntity {
         updated = new Date();
     }
 
-
-
-
 }

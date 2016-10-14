@@ -1,12 +1,17 @@
 // tag::sample[]
 package fr.ospiea.oscra.user.object;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import fr.ospiea.oscra.activity.object.Activity;
 import fr.ospiea.oscra.common.AbstractEntity;
+import fr.ospiea.oscra.cra.object.Cra;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 public class User extends AbstractEntity implements Serializable{
@@ -17,18 +22,16 @@ public class User extends AbstractEntity implements Serializable{
     private String firstName;
     private String lastName;
     private String email;
+    @JsonIgnore
     private String password;
     private boolean enabled;
-
     @Enumerated(EnumType.STRING)
     private Role role;
-
     private String roadNumber;
     private String road;
     private String supplementaryAddress;
     private String postalCode;
     private String city;
-
     private String phoneNumber;
     @Temporal(TemporalType.TIMESTAMP)
     private Date birthday;
@@ -37,6 +40,36 @@ public class User extends AbstractEntity implements Serializable{
     @Enumerated(EnumType.STRING)
     private Civility civility;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL)
+    private List<Cra> cras;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "validator", cascade = CascadeType.ALL)
+    private List<Cra> adminCheckCras;
+
+
+/*
+    @JsonIgnore
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    private List<Activity> activities;
+
+    public void setActivities(List<Activity> activities) {
+        this.activities = activities;
+    }
+
+    public List<Activity> getActivities() {
+        return activities;
+    }
+
+    public boolean addActivity(Activity activity) {
+        if (!getActivities().contains(activity)) {
+            getActivities().add(activity);
+            return true;
+        }
+        return false;
+    }
+    */
 
     public long getId() {
         return id;
@@ -179,6 +212,22 @@ public class User extends AbstractEntity implements Serializable{
     }
 
     protected User() {}
+
+    public List<Cra> getCras() {
+        return cras;
+    }
+
+    public void setCras(List<Cra> cras) {
+        this.cras = cras;
+    }
+
+    public List<Cra> getAdminCheckCras() {
+        return adminCheckCras;
+    }
+
+    public void setAdminCheckCras(List<Cra> adminCheckCras) {
+        this.adminCheckCras = adminCheckCras;
+    }
 
     public void copyFrom(User user){
         Field [] attributes =  user.getClass().getDeclaredFields();
