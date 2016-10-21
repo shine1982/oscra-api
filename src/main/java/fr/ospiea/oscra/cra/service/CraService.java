@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,6 +22,18 @@ public class CraService {
 
     @Autowired
     private UserDao userDao;
+
+    public List<Cra> findAll(){
+        List<Cra> cras = new ArrayList<>();
+        craDao.findAll().iterator().forEachRemaining(cras::add);
+        return cras;
+    }
+
+    public List<Cra> findAllByInterval(long providerId, String start, String end){
+        User provider= userDao.findOne(providerId);
+        List<Cra> cras = provider.getCras();
+        return cras;
+    }
 
     public List<Cra> findAllByProviderId(long providerId) {
         User provider= userDao.findOne(providerId);

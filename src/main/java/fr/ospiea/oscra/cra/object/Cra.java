@@ -16,8 +16,18 @@ import java.util.List;
 @Entity
 public class Cra extends AbstractEntity implements Serializable {
     private long id;
+    /*
+    * The month string should respect the format yyyy-mm
+    * */
     private String month;
     private boolean validated;
+    @Enumerated(EnumType.STRING)
+    private CraStatus status;
+
+    @ManyToOne(fetch= FetchType.EAGER,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH})
+    @JoinColumn(name ="last_modify_user_id")
+    private User lastModifyUser;
 
 
     @ManyToOne(fetch= FetchType.EAGER,
@@ -91,6 +101,22 @@ public class Cra extends AbstractEntity implements Serializable {
                 e.printStackTrace();
             }
         }
+    }
+
+    public CraStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(CraStatus status) {
+        this.status = status;
+    }
+
+    public User getLastModifyUser() {
+        return lastModifyUser;
+    }
+
+    public void setLastModifyUser(User lastModifyUser) {
+        this.lastModifyUser = lastModifyUser;
     }
 
 }
