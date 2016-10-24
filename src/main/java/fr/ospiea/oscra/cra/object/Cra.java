@@ -21,6 +21,8 @@ public class Cra extends AbstractEntity implements Serializable {
     * */
     private String month;
     private boolean validated;
+    private String description;
+
     @Enumerated(EnumType.STRING)
     private CraStatus status;
 
@@ -40,7 +42,7 @@ public class Cra extends AbstractEntity implements Serializable {
     @JoinColumn(name ="validator_id")
     private User validator;
 
-    @JsonIgnore
+
     @OneToMany(mappedBy = "cra", cascade = CascadeType.ALL)
     private List<Activity> activities;
 
@@ -117,6 +119,13 @@ public class Cra extends AbstractEntity implements Serializable {
 
     public void setLastModifyUser(User lastModifyUser) {
         this.lastModifyUser = lastModifyUser;
+    }
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
 }

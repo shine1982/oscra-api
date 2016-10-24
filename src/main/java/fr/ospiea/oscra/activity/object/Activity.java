@@ -1,5 +1,6 @@
 package fr.ospiea.oscra.activity.object;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import fr.ospiea.oscra.common.AbstractEntity;
 import fr.ospiea.oscra.cra.object.Cra;
 import fr.ospiea.oscra.user.object.User;
@@ -18,10 +19,12 @@ public class Activity extends AbstractEntity implements Serializable {
     private Date start;
     private Date end;
     private String description;
-
+    //the unit is 0.5 day
+    private int duration;
     /* Here the fetch type should be eager absolutely.
-     * Otherwise, a json serialization problem occurs
-     * */
+         * Otherwise, a json serialization problem occurs
+         * */
+    @JsonIgnore
     @ManyToOne(fetch= FetchType.EAGER,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name ="cra_id")
@@ -65,6 +68,14 @@ public class Activity extends AbstractEntity implements Serializable {
 
     public void setDescription(String description) {
         description = description;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 
     public void copyFrom(Activity activity){
