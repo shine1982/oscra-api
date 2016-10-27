@@ -20,13 +20,16 @@ public class Activity extends AbstractEntity implements Serializable {
     private Date endtime;
     private int amorpm;
     private String description;
+    @OneToOne(fetch= FetchType.EAGER,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH})
+    @JoinColumn(name ="activitytype_id")
     private ActivityType activityType;
     //the unit is 0.5 day
     private int duration;
     /* Here the fetch type should be eager absolutely.
          * Otherwise, a json serialization problem occurs
          * */
-    @JsonIgnore
+
     @ManyToOne(fetch= FetchType.EAGER,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name ="cra_id")
@@ -78,6 +81,22 @@ public class Activity extends AbstractEntity implements Serializable {
 
     public void setDuration(int duration) {
         this.duration = duration;
+    }
+
+    public ActivityType getActivityType() {
+        return activityType;
+    }
+
+    public void setActivityType(ActivityType activityType) {
+        this.activityType = activityType;
+    }
+
+    public int getAmorpm() {
+        return amorpm;
+    }
+
+    public void setAmorpm(int amorpm) {
+        this.amorpm = amorpm;
     }
 
     public void copyFrom(Activity activity){

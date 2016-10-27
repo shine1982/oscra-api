@@ -28,7 +28,7 @@ public class CraService {
         craDao.findAll().iterator().forEachRemaining(cras::add);
         return cras;
     }
-
+/*
     public List<Cra> findAllByInterval(long providerId, String start, String end){
         User provider= userDao.findOne(providerId);
         List<Cra> cras = provider.getCras();
@@ -46,7 +46,7 @@ public class CraService {
         List<Cra> cras = provider.getAdminCheckCras();
         return cras;
     }
-
+*/
     public Cra add(long providerId, long validatorId, long lastModifyUserId, Cra cra) {
         User provider = userDao.findOne(providerId);
         User validator = userDao.findOne(validatorId);
@@ -70,7 +70,6 @@ public class CraService {
         existedCra.setProvider(provider);
         existedCra.setValidator(validator);
         existedCra.setLastModifyUser(lastModifyUser);
-        System.out.println(cra.getProvider());
         return craDao.save(existedCra);
     }
 

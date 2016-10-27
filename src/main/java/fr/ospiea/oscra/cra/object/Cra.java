@@ -132,6 +132,4 @@ public class Cra extends AbstractEntity implements Serializable {
     public Date getUpdated(){
         return updated;
     }
-
-
 }

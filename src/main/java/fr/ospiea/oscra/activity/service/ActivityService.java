@@ -51,7 +51,6 @@ public class ActivityService {
         existedActivity.copyFrom(activity);
         existedActivity.setCra(cra);
         return activityDao.save(existedActivity);
-
     }
 
     public void delete(long activityId) {
