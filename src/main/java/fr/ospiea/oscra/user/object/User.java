@@ -16,7 +16,7 @@ import java.util.Set;
 @Entity
 public class User extends AbstractEntity implements Serializable{
 
-    private long id;
+
 
     private String username;
     private String firstName;

@@ -8,6 +8,7 @@ import fr.ospiea.oscra.user.object.User;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.lang.reflect.Field;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ import java.util.List;
  */
 @Entity
 public class Cra extends AbstractEntity implements Serializable {
-    private long id;
+
     /*
     * The month string should respect the format yyyy-mm
     * */
@@ -127,5 +128,10 @@ public class Cra extends AbstractEntity implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public Date getUpdated(){
+        return updated;
+    }
+
 
 }

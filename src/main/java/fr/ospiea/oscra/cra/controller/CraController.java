@@ -41,15 +41,19 @@ public class CraController {
     }
 */
     @RequestMapping(value = "/add", method= RequestMethod.POST)
-    public Cra add(@RequestParam long providerId, @RequestParam long validatorId, @RequestBody Cra cra){
-        return craService.add(providerId, validatorId, cra);
+    public Cra add(@RequestParam long providerId, @RequestParam long validatorId,
+                   @RequestParam long lastModifyUserId, @RequestBody Cra cra){
+        return craService.add(providerId, validatorId, lastModifyUserId, cra);
     }
 
-
-
     @RequestMapping(value = "/update", method= RequestMethod.POST)
-    public Cra update(@RequestParam long providerId, @RequestParam long validatorId, @RequestBody Cra cra){
-        return craService.update(cra, providerId, validatorId);
+    public Cra update(@RequestParam long providerId, @RequestParam long validatorId,
+                      @RequestParam long lastModifyUserId, @RequestBody Cra cra){
+        System.out.println(providerId);
+        System.out.println(validatorId);
+        System.out.println(lastModifyUserId);
+        System.out.println(cra);
+        return craService.update(providerId, validatorId, lastModifyUserId, cra);
     }
 
     @RequestMapping(value = "/delete", method= RequestMethod.POST)

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import fr.ospiea.oscra.common.AbstractEntity;
 import fr.ospiea.oscra.cra.object.Cra;
 import fr.ospiea.oscra.setting.activity.object.ActivityType;
-import fr.ospiea.oscra.user.object.User;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,11 +15,12 @@ import java.util.Date;
  */
 @Entity
 public class Activity extends AbstractEntity implements Serializable {
-    private long id;
-    private Date start;
-    private Date end;
+
+    private Date starttime;
+    private Date endtime;
+    private int amorpm;
     private String description;
-    private ActivityType type;
+    private ActivityType activityType;
     //the unit is 0.5 day
     private int duration;
     /* Here the fetch type should be eager absolutely.
@@ -48,20 +48,20 @@ public class Activity extends AbstractEntity implements Serializable {
         this.id = id;
     }
 
-    public Date getStart() {
-        return start;
+    public Date getStarttime() {
+        return starttime;
     }
 
-    public void setStart(Date start) {
-        this.start = start;
+    public void setStarttime(Date starttime) {
+        this.starttime = starttime;
     }
 
-    public Date getEnd() {
-        return end;
+    public Date getEndtime() {
+        return endtime;
     }
 
-    public void setEnd(Date end) {
-        this.end = end;
+    public void setEndtime(Date endtime) {
+        this.endtime = endtime;
     }
 
     public String getDescription() {

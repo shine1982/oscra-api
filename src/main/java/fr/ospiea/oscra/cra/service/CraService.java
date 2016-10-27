@@ -47,11 +47,13 @@ public class CraService {
         return cras;
     }
 
-    public Cra add(long providerId, long validatorId, Cra cra) {
+    public Cra add(long providerId, long validatorId, long lastModifyUserId, Cra cra) {
         User provider = userDao.findOne(providerId);
         User validator = userDao.findOne(validatorId);
+        User lastModifyUser = userDao.findOne(lastModifyUserId);
         cra.setProvider(provider);
         cra.setValidator(validator);
+        cra.setLastModifyUser(lastModifyUser);
         return craDao.save(cra);
     }
 
@@ -59,13 +61,16 @@ public class CraService {
         return craDao.findOne(craId);
     }
 
-    public Cra update(Cra cra,long providerId, long validatorId) {
+    public Cra update(long providerId, long validatorId, long lastModifyUserId, Cra cra) {
         Cra existedCra = craDao.findOne(cra.getId());
         User provider = userDao.findOne(providerId);
         User validator = userDao.findOne(validatorId);
+        User lastModifyUser = userDao.findOne(lastModifyUserId);
         existedCra.copyFrom(cra);
-        cra.setProvider(provider);
-        cra.setValidator(validator);
+        existedCra.setProvider(provider);
+        existedCra.setValidator(validator);
+        existedCra.setLastModifyUser(lastModifyUser);
+        System.out.println(cra.getProvider());
         return craDao.save(existedCra);
     }
 
