@@ -8,6 +8,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.io.Serializable;
+import java.lang.reflect.Field;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,6 +21,7 @@ public class ActivityType extends AbstractEntity implements Serializable {
     @OneToMany(mappedBy = "activityType", cascade = CascadeType.ALL)
     private List<Activity> activities;
   */
+    @Column(unique=true)
     private String name;
 
     public String getName() {
@@ -28,6 +31,26 @@ public class ActivityType extends AbstractEntity implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+
+    public Date getUpdated(){
+        return updated;
+    }
+
+    public Long getId(){
+        return id;
+    }
+
+    public void copyFrom(ActivityType activityType){
+        Field[] attributes =  activityType.getClass().getDeclaredFields();
+        for (Field field: attributes){
+            try {
+                field.set(this,field.get(activityType));
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 /*
     public List<Activity> getActivities() {
         return activities;

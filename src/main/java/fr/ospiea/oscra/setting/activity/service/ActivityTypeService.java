@@ -24,7 +24,25 @@ public class ActivityTypeService {
     }
 
     public ActivityType add(ActivityType activityType){
+        if (!isActivityTypeExisited(activityType))
+            return activityTypeDao.save(activityType);
+        else {
+            return null;
+        }
+    }
 
-        return activityTypeDao.save(activityType);
+    public boolean isActivityTypeExisited(ActivityType activityType){
+        ActivityType a = activityTypeDao.findOneByName(activityType.getName());
+        return a!=null;
+    }
+
+    public ActivityType update(ActivityType activityType) {
+        ActivityType existedActivityType = activityTypeDao.findOne(activityType.getId());
+        existedActivityType.copyFrom(activityType);
+        return activityTypeDao.save(existedActivityType);
+    }
+
+    public void delete(Long activityTypeId) {
+        activityTypeDao.delete(activityTypeId);
     }
 }

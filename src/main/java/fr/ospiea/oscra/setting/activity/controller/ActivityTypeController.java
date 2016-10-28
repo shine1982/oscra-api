@@ -28,4 +28,14 @@ public class ActivityTypeController {
     public ActivityType add(@RequestBody ActivityType activityType){
         return activityTypeService.add(activityType);
     }
+
+    @RequestMapping(value = "/update", method= RequestMethod.POST)
+    public ActivityType update(@RequestBody ActivityType activityType){
+        return activityTypeService.update(activityType);
+    }
+
+    @RequestMapping(value = "/delete", method= RequestMethod.POST)
+    public void delete(@RequestParam long activityTypeId){
+        activityTypeService.delete(activityTypeId);
+    }
 }
