@@ -10,7 +10,13 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.Date;
 import java.util.List;
-
+/*
+spring data
+* http://docs.spring.io/spring-data/jpa/docs/current/reference/html/
+*
+* solve nested entity problem
+* http://stackoverflow.com/questions/33475222/spring-boot-jpa-json-without-nested-object-with-onetomany-relation
+* */
 /**
  * Created by taozheng on 13/10/2016.
  */
