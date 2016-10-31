@@ -4,6 +4,8 @@ import fr.ospiea.oscra.activity.dao.ActivityDao;
 import fr.ospiea.oscra.activity.object.Activity;
 import fr.ospiea.oscra.cra.dao.CraDao;
 import fr.ospiea.oscra.cra.object.Cra;
+import fr.ospiea.oscra.setting.activity.dao.ActivityTypeDao;
+import fr.ospiea.oscra.setting.activity.object.ActivityType;
 import fr.ospiea.oscra.user.dao.UserDao;
 import fr.ospiea.oscra.user.object.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class ActivityService {
     private ActivityDao activityDao;
 
     @Autowired
+    private ActivityTypeDao activityTypeDao;
+
+    @Autowired
     private CraDao craDao;
 
     public List<Activity> findAll(long craId) {
@@ -31,9 +36,11 @@ public class ActivityService {
     }
 
 
-    public Activity add(long craId, Activity activity){
+    public Activity add(long craId, long activityTypeId, Activity activity){
         Cra cra = craDao.findOne(craId);
+        ActivityType activityType = activityTypeDao.findOne(activityTypeId);
         if (!cra.getActivities().contains(activity)){
+            activity.setActivityType(activityType);
             activity.setCra(cra);
             return activityDao.save(activity);
         }else{

@@ -1,7 +1,11 @@
 package fr.ospiea.oscra.cra.service;
 
+import fr.ospiea.oscra.activity.dao.ActivityDao;
+import fr.ospiea.oscra.activity.object.Activity;
 import fr.ospiea.oscra.cra.dao.CraDao;
 import fr.ospiea.oscra.cra.object.Cra;
+import fr.ospiea.oscra.setting.activity.dao.ActivityTypeDao;
+import fr.ospiea.oscra.setting.activity.object.ActivityType;
 import fr.ospiea.oscra.user.dao.UserDao;
 import fr.ospiea.oscra.user.object.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +23,12 @@ public class CraService {
 
     @Autowired
     private CraDao craDao;
+
+    @Autowired
+    private ActivityDao activityDao;
+
+    @Autowired
+    private ActivityTypeDao activityTypeDao;
 
     @Autowired
     private UserDao userDao;
@@ -70,8 +80,23 @@ public class CraService {
         existedCra.setProvider(provider);
         existedCra.setValidator(validator);
         existedCra.setLastModifyUser(lastModifyUser);
+
+        List<Activity> savedActivities = new ArrayList<>();
+        for (Activity a : cra.getActivities()){
+            ActivityType activityType=activityTypeDao.findOneByName(a.getActivityType().getName());
+            a.setActivityType(activityType);
+           // Activity saveda = activityDao.save(a);
+           // System.out.println(saveda);
+            a.setCra(existedCra);
+            savedActivities.add(a);
+
+        }
+        System.out.println(savedActivities);
+
+        existedCra.setActivities(savedActivities);
         return craDao.save(existedCra);
     }
+
 
     public void delete(long craId) {
         craDao.delete(craId);

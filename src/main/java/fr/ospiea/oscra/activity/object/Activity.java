@@ -33,6 +33,7 @@ public class Activity extends AbstractEntity implements Serializable {
     @ManyToOne(fetch= FetchType.EAGER,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name ="cra_id")
+    @JsonIgnore
     private Cra cra;
 
     public Cra getCra() {
@@ -43,7 +44,7 @@ public class Activity extends AbstractEntity implements Serializable {
         this.cra = cra;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -108,5 +109,18 @@ public class Activity extends AbstractEntity implements Serializable {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Activity{" +
+                "starttime=" + starttime +
+                ", endtime=" + endtime +
+                ", amorpm=" + amorpm +
+                ", description='" + description + '\'' +
+                ", activityType=" + activityType +
+                ", duration=" + duration +
+                ", cra=" + cra +
+                '}';
     }
 }

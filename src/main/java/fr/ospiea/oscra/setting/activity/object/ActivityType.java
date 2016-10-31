@@ -51,6 +51,14 @@ public class ActivityType extends AbstractEntity implements Serializable {
         }
     }
 
+
+    @Override
+    public String toString() {
+        return "ActivityType{" +
+                "id='" + id + '\'' +
+                "name='" + name + '\'' +
+                '}';
+    }
 /*
     public List<Activity> getActivities() {
         return activities;

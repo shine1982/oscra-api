@@ -24,8 +24,8 @@ public class ActivityController {
     }
 
     @RequestMapping(value = "/add", method= RequestMethod.POST)
-    public Activity add(@RequestParam long craId, @RequestBody Activity activity){
-        return activityService.add(craId, activity);
+    public Activity add(@RequestParam long craId,@RequestParam long activityTypeId, @RequestBody Activity activity){
+        return activityService.add(craId,activityTypeId, activity);
     }
 
     @RequestMapping(value = "/findById", method= RequestMethod.GET)

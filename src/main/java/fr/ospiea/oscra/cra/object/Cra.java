@@ -1,6 +1,9 @@
 package fr.ospiea.oscra.cra.object;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import fr.ospiea.oscra.activity.object.Activity;
 import fr.ospiea.oscra.common.AbstractEntity;
 import fr.ospiea.oscra.user.object.User;
@@ -105,6 +108,8 @@ public class Cra extends AbstractEntity implements Serializable {
         Field[] attributes =  cra.getClass().getDeclaredFields();
         for (Field field: attributes){
             try {
+                if (field.getName()!="activities" || field.getName()!="lastModifyUser"
+                        || field.getName()!="provider" || field.getName()!="validator")
                 field.set(this,field.get(cra));
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
