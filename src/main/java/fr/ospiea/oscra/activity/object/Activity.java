@@ -112,17 +112,4 @@ public class Activity extends AbstractEntity implements Serializable {
             }
         }
     }
-
-    @Override
-    public String toString() {
-        return "Activity{" +
-                "starttime=" + starttime +
-                ", endtime=" + endtime +
-                ", amorpm=" + amorpm +
-                ", description='" + description + '\'' +
-                ", activityType=" + activityType +
-                ", duration=" + duration +
-                ", cra=" + cra +
-                '}';
-    }
 }
