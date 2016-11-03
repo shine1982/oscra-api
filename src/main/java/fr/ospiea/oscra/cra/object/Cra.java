@@ -64,11 +64,11 @@ public class Cra extends AbstractEntity implements Serializable {
         this.activities = activities;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

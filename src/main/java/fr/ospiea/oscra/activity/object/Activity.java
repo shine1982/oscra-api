@@ -1,5 +1,6 @@
 package fr.ospiea.oscra.activity.object;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import fr.ospiea.oscra.common.AbstractEntity;
 import fr.ospiea.oscra.cra.object.Cra;
@@ -18,6 +19,7 @@ public class Activity extends AbstractEntity implements Serializable {
 
     private Date starttime;
     private Date endtime;
+    //0 -> one day, 1 -> am, 2 -> pm
     private int amorpm;
     private String description;
     @OneToOne(fetch= FetchType.EAGER,

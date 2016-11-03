@@ -51,7 +51,6 @@ public class CraController {
     @RequestMapping(value = "/update", method= RequestMethod.POST)
     public Cra update(@RequestParam long providerId, @RequestParam long validatorId,
                       @RequestParam long lastModifyUserId, @RequestBody Cra cra){
-        System.out.println(cra);
         return craService.update(providerId, validatorId, lastModifyUserId, cra);
     }
 

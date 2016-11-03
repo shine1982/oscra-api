@@ -64,6 +64,14 @@ public class CraService {
         cra.setProvider(provider);
         cra.setValidator(validator);
         cra.setLastModifyUser(lastModifyUser);
+        List<Activity> savedActivities = new ArrayList<>();
+        for (Activity a : cra.getActivities()){
+            ActivityType activityType=activityTypeDao.findOneByName(a.getActivityType().getName());
+            a.setActivityType(activityType);
+            a.setCra(cra);
+            savedActivities.add(a);
+        }
+        cra.setActivities(savedActivities);
         return craDao.save(cra);
     }
 
@@ -91,8 +99,6 @@ public class CraService {
             savedActivities.add(a);
 
         }
-        System.out.println(savedActivities);
-
         existedCra.setActivities(savedActivities);
         return craDao.save(existedCra);
     }
