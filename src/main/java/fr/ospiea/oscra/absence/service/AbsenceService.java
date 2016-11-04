@@ -37,4 +37,25 @@ public class AbsenceService {
         return absenceDao.save(absence);
     }
 
+    public Absence update(Long providerId, Long validatorId, Long lastModifyUserId, Absence absence) {
+        Absence existedAbsence = absenceDao.findOne(absence.getId());
+        User provider = userDao.findOne(providerId);
+        User validator = userDao.findOne(validatorId);
+        User lastModifyUser = userDao.findOne(lastModifyUserId);
+        existedAbsence.copyFrom(absence);
+        existedAbsence.setProvider(provider);
+        existedAbsence.setValidator(validator);
+        existedAbsence.setLastModifyUser(lastModifyUser);
+        return absenceDao.save(existedAbsence);
+    }
+
+    public Absence findById(Long absenceId) {
+        return absenceDao.findOne(absenceId);
+    }
+
+    public void delete(long absenceId) {
+        absenceDao.delete(absenceId);
+    }
+
+
 }

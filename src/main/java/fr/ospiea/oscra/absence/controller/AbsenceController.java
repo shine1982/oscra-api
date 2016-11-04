@@ -27,16 +27,26 @@ public class AbsenceController {
                    @RequestParam long lastModifyUserId, @RequestBody Absence absence){
         return absenceService.add(providerId, validatorId, lastModifyUserId, absence);
     }
-/*
-    @RequestMapping(value = "/findById", method= RequestMethod.GET)
-    public Activity findById(@RequestParam long activityId){
-        return activityService.findById(activityId);
-    }
 
     @RequestMapping(value = "/update", method= RequestMethod.POST)
-    public Activity update(@RequestBody Activity activity, @RequestParam long craId){
-        return activityService.update(activity, craId);
+    public Absence update(@RequestParam long providerId, @RequestParam long validatorId,
+                          @RequestParam long lastModifyUserId, @RequestBody Absence absence){
+        return absenceService.update(providerId, validatorId, lastModifyUserId, absence);
     }
+
+    @RequestMapping(value = "/findById", method= RequestMethod.GET)
+    public Absence findById(@RequestParam Long absenceId){
+        return absenceService.findById(absenceId);
+    }
+
+    @RequestMapping(value = "/delete", method= RequestMethod.POST)
+    public void delete(@RequestParam Long absenceId){
+        absenceService.delete(absenceId);
+    }
+/*
+
+
+
 
     @RequestMapping(value = "/delete", method= RequestMethod.POST)
     public void delete(@RequestParam long activityId){

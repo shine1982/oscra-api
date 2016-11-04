@@ -3,8 +3,9 @@ package fr.ospiea.oscra.absence.object;
 import fr.ospiea.oscra.common.AbstractEntity;
 import fr.ospiea.oscra.user.object.User;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.util.Date;
 
 /**
@@ -12,15 +13,29 @@ import java.util.Date;
  */
 @Entity
 public class Absence extends AbstractEntity implements Serializable {
+    @Temporal(TemporalType.TIMESTAMP)
     private Date starttime;
+
+    @Temporal(TemporalType.TIMESTAMP)
     private Date endtime;
+
     private String description;
+    @ManyToOne(fetch= FetchType.EAGER,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH})
+    @JoinColumn(name ="provider_id")
     private User provider;
+    @ManyToOne(fetch= FetchType.EAGER,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH})
+    @JoinColumn(name ="validator_id")
     private User validator;
-
-
-
+    @ManyToOne(fetch= FetchType.EAGER,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH})
+    @JoinColumn(name ="last_modify_user_id")
     private User lastModifyUser;
+
+    public Long getId(){
+        return id;
+    }
 
     public Date getStarttime() {
         return starttime;
@@ -68,5 +83,18 @@ public class Absence extends AbstractEntity implements Serializable {
 
     public void setLastModifyUser(User lastModifyUser) {
         this.lastModifyUser = lastModifyUser;
+    }
+
+    public void copyFrom(Absence absence){
+        Field[] attributes =  absence.getClass().getDeclaredFields();
+        for (Field field: attributes){
+            try {
+                if (field.getName()!="lastModifyUser"
+                        || field.getName()!="provider" || field.getName()!="validator")
+                    field.set(this,field.get(absence));
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

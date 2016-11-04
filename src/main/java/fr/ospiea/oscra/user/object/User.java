@@ -48,29 +48,6 @@ public class User extends AbstractEntity implements Serializable{
     @OneToMany(mappedBy = "validator", cascade = CascadeType.ALL)
     private List<Cra> adminCheckCras;
 
-
-/*
-    @JsonIgnore
-    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
-    private List<Activity> activities;
-
-    public void setActivities(List<Activity> activities) {
-        this.activities = activities;
-    }
-
-    public List<Activity> getActivities() {
-        return activities;
-    }
-
-    public boolean addActivity(Activity activity) {
-        if (!getActivities().contains(activity)) {
-            getActivities().add(activity);
-            return true;
-        }
-        return false;
-    }
-    */
-
     public long getId() {
         return id;
     }
