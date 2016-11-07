@@ -19,8 +19,6 @@ public class UserController {
 
     @RequestMapping(value = "/add", method= RequestMethod.POST)
     public User add(@RequestBody User user){
-        System.out.println("==============================");
-        System.out.println(user.getFirstName());
         return userService.add(user);
     }
 

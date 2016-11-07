@@ -48,7 +48,7 @@ public class User extends AbstractEntity implements Serializable{
     @OneToMany(mappedBy = "validator", cascade = CascadeType.ALL)
     private List<Cra> adminCheckCras;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
