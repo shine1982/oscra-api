@@ -29,7 +29,7 @@ public class Cra extends AbstractEntity implements Serializable {
     /*
     * The month string should respect the format yyyy-mm
     * */
-    private String month;
+    private Date month;
     private boolean validated;
     private String description;
 
@@ -72,11 +72,11 @@ public class Cra extends AbstractEntity implements Serializable {
         this.id = id;
     }
 
-    public String getMonth() {
+    public Date getMonth() {
         return month;
     }
 
-    public void setMonth(String month) {
+    public void setMonth(Date month) {
         this.month = month;
     }
 
@@ -104,19 +104,6 @@ public class Cra extends AbstractEntity implements Serializable {
         this.validator = validator;
     }
 
-    public void copyFrom(Cra cra){
-        Field[] attributes =  cra.getClass().getDeclaredFields();
-        for (Field field: attributes){
-            try {
-                if (field.getName()!="activities" || field.getName()!="lastModifyUser"
-                        || field.getName()!="provider" || field.getName()!="validator")
-                field.set(this,field.get(cra));
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     public CraStatus getStatus() {
         return status;
     }
@@ -142,5 +129,18 @@ public class Cra extends AbstractEntity implements Serializable {
 
     public Date getUpdated(){
         return updated;
+    }
+
+    public void copyFrom(Cra cra){
+        Field[] attributes =  cra.getClass().getDeclaredFields();
+        for (Field field: attributes){
+            try {
+                if (field.getName()!="activities" || field.getName()!="lastModifyUser"
+                        || field.getName()!="provider" || field.getName()!="validator")
+                    field.set(this,field.get(cra));
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

@@ -17,6 +17,11 @@ public class AbsenceController {
     @Autowired
     private AbsenceService absenceService;
 
+    @RequestMapping(value = "/fakeall", method= RequestMethod.GET)
+    public List<Absence> craFakeAll(@RequestParam int dstPage) {
+        return absenceService.findFakeAll(dstPage);
+    }
+
     @RequestMapping(value = "/all", method= RequestMethod.GET)
     public List<Absence> all(){
         return absenceService.findAll();

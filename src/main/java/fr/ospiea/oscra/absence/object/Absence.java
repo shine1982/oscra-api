@@ -33,6 +33,10 @@ public class Absence extends AbstractEntity implements Serializable {
     @JoinColumn(name ="last_modify_user_id")
     private User lastModifyUser;
 
+    public Date getUpdated(){
+        return updated;
+    }
+
     public Long getId(){
         return id;
     }

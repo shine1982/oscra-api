@@ -17,6 +17,12 @@ public class CraController {
     @Autowired
     private CraService craService;
 
+
+    @RequestMapping(value = "/fakeall", method= RequestMethod.GET)
+    public List<Cra> craFakeAll(@RequestParam int dstPage) {
+        return craService.findFakeAll(dstPage);
+    }
+
     @RequestMapping(value = "/all", method= RequestMethod.GET)
     public List<Cra> craall() {
         return craService.findAll();

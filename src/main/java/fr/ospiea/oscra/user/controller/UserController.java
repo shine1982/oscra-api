@@ -17,14 +17,19 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/add", method= RequestMethod.POST)
-    public User add(@RequestBody User user){
-        return userService.add(user);
+    @RequestMapping(value = "/fakeall", method= RequestMethod.GET)
+    public List<User> craFakeAll(@RequestParam int dstPage) {
+        return userService.findFakeAll(dstPage);
     }
 
     @RequestMapping(value = "/all", method= RequestMethod.GET)
     public List<User> all(){
         return userService.findAll();
+    }
+
+    @RequestMapping(value = "/add", method= RequestMethod.POST)
+    public User add(@RequestBody User user){
+        return userService.add(user);
     }
 
     @RequestMapping(value = "/findById", method= RequestMethod.GET)
