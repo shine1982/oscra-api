@@ -24,6 +24,16 @@ public class ActivityType extends AbstractEntity implements Serializable {
     @Column(unique=true)
     private String name;
 
+    private String label;
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
     public String getName() {
         return name;
     }
