@@ -1,9 +1,5 @@
 package fr.ospiea.oscra.cra.object;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import fr.ospiea.oscra.activity.object.Activity;
 import fr.ospiea.oscra.common.AbstractEntity;
 import fr.ospiea.oscra.user.object.User;
@@ -13,22 +9,13 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.Date;
 import java.util.List;
-/*
-spring data
-* http://docs.spring.io/spring-data/jpa/docs/current/reference/html/
-*
-* solve nested entity problem
-* http://stackoverflow.com/questions/33475222/spring-boot-jpa-json-without-nested-object-with-onetomany-relation
-* */
+
 /**
  * Created by taozheng on 13/10/2016.
  */
 @Entity
 public class Cra extends AbstractEntity implements Serializable {
 
-    /*
-    * The month string should respect the format yyyy-mm
-    * */
     private Date month;
     private boolean validated;
     private String description;
