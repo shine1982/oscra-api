@@ -4,6 +4,9 @@ import fr.ospiea.oscra.activity.dao.ActivityDao;
 import fr.ospiea.oscra.activity.object.Activity;
 import fr.ospiea.oscra.cra.dao.CraDao;
 import fr.ospiea.oscra.cra.object.Cra;
+import fr.ospiea.oscra.cra.object.CraStatus;
+import fr.ospiea.oscra.notif.common.NotifAction;
+import fr.ospiea.oscra.notif.cra.service.CraNotifService;
 import fr.ospiea.oscra.setting.activity.dao.ActivityTypeDao;
 import fr.ospiea.oscra.setting.activity.object.ActivityType;
 import fr.ospiea.oscra.user.dao.UserDao;
@@ -30,13 +33,13 @@ public class CraService {
     private CraDao craDao;
 
     @Autowired
-    private ActivityDao activityDao;
-
-    @Autowired
     private ActivityTypeDao activityTypeDao;
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private CraNotifService craNotifService;
 
     public List<Cra> findAll(){
         List<Cra> cras = new ArrayList<>();
@@ -57,7 +60,9 @@ public class CraService {
     public Cra add(long providerId, long validatorId, long lastModifyUserId, Cra cra) {
         setCraPVL(providerId, validatorId, lastModifyUserId, cra);
         cra.setActivities(setupActivities(cra, cra));
-        return craDao.save(cra);
+        Cra result = craDao.save(cra);
+        checkToSendNotifToValidate(result);
+        return result;
     }
 
     public Cra findById(Long craId) {
@@ -69,7 +74,9 @@ public class CraService {
         existedCra.copyFrom(cra);
         setCraPVL(providerId, validatorId, lastModifyUserId, existedCra);
         existedCra.setActivities(setupActivities(cra, existedCra));
-        return craDao.save(existedCra);
+        Cra result = craDao.save( existedCra);
+        checkToSendNotifToValidate(result);
+        return result;
     }
 
     public void delete(long craId) {
@@ -85,6 +92,13 @@ public class CraService {
         cra.setProvider(provider);
         cra.setValidator(validator);
         cra.setLastModifyUser(lastModifyUser);
+    }
+
+    private void checkToSendNotifToValidate(Cra result){
+        if (result.getStatus() == CraStatus.TRANSIMITTED_NOT_VALIDATED){
+            craNotifService.sendAbsenceToAdminToValidate(result.getProvider(), result.getValidator(), result, NotifAction.TO_VALIDATE);
+        }
+
     }
 
     private List<Activity> setupActivities(Cra cra, Cra existedCra){

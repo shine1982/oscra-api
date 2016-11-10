@@ -33,6 +33,9 @@ public class Absence extends AbstractEntity implements Serializable {
     @JoinColumn(name ="last_modify_user_id")
     private User lastModifyUser;
 
+    @Enumerated(EnumType.STRING)
+    private AbsenceStatus status;
+
     public Date getUpdated(){
         return updated;
     }
@@ -87,6 +90,14 @@ public class Absence extends AbstractEntity implements Serializable {
 
     public void setLastModifyUser(User lastModifyUser) {
         this.lastModifyUser = lastModifyUser;
+    }
+
+    public AbsenceStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(AbsenceStatus status) {
+        this.status = status;
     }
 
     public void copyFrom(Absence absence){

@@ -2,21 +2,20 @@
 package fr.ospiea.oscra.user.object;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import fr.ospiea.oscra.activity.object.Activity;
 import fr.ospiea.oscra.common.AbstractEntity;
 import fr.ospiea.oscra.cra.object.Cra;
+import fr.ospiea.oscra.notif.absence.object.AbsenceNotif;
+import fr.ospiea.oscra.notif.cra.object.CraNotif;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
+
 
 @Entity
 public class User extends AbstractEntity implements Serializable{
-
-
 
     private String username;
     private String firstName;
@@ -47,6 +46,23 @@ public class User extends AbstractEntity implements Serializable{
     @JsonIgnore
     @OneToMany(mappedBy = "validator", cascade = CascadeType.ALL)
     private List<Cra> adminCheckCras;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "absencefrom", cascade = CascadeType.ALL)
+    private List<AbsenceNotif> sentAbsenceNotifs;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "absenceto", cascade = CascadeType.ALL)
+    private List<AbsenceNotif> receievedAbsenceNotifs;
+
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "crafrom", cascade = CascadeType.ALL)
+    private List<CraNotif> sentCraNotifs;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "crato", cascade = CascadeType.ALL)
+    private List<CraNotif> receievedCraNotifs;
 
     public Long getId() {
         return id;
@@ -205,6 +221,40 @@ public class User extends AbstractEntity implements Serializable{
     public void setAdminCheckCras(List<Cra> adminCheckCras) {
         this.adminCheckCras = adminCheckCras;
     }
+
+    public List<AbsenceNotif> getSentAbsenceNotifs() {
+        return sentAbsenceNotifs;
+    }
+
+    public void setSentAbsenceNotifs(List<AbsenceNotif> sentAbsenceNotifs) {
+        this.sentAbsenceNotifs = sentAbsenceNotifs;
+    }
+
+    public List<AbsenceNotif> getReceievedAbsenceNotifs() {
+        return receievedAbsenceNotifs;
+    }
+
+    public void setReceievedAbsenceNotifs(List<AbsenceNotif> receievedAbsenceNotifs) {
+        this.receievedAbsenceNotifs = receievedAbsenceNotifs;
+    }
+
+
+    public List<CraNotif> getSentCraNotifs() {
+        return sentCraNotifs;
+    }
+
+    public void setSentCraNotifs(List<CraNotif> sentCraNotifs) {
+        this.sentCraNotifs = sentCraNotifs;
+    }
+
+    public List<CraNotif> getReceievedCraNotifs() {
+        return receievedCraNotifs;
+    }
+
+    public void setReceievedCraNotifs(List<CraNotif> receievedCraNotifs) {
+        this.receievedCraNotifs = receievedCraNotifs;
+    }
+
 
     public void copyFrom(User user){
         Field [] attributes =  user.getClass().getDeclaredFields();

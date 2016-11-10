@@ -2,6 +2,9 @@ package fr.ospiea.oscra.absence.service;
 
 import fr.ospiea.oscra.absence.dao.AbsenceDao;
 import fr.ospiea.oscra.absence.object.Absence;
+import fr.ospiea.oscra.absence.object.AbsenceStatus;
+import fr.ospiea.oscra.notif.absence.service.AbsenceNotifService;
+import fr.ospiea.oscra.notif.common.NotifAction;
 import fr.ospiea.oscra.user.dao.UserDao;
 import fr.ospiea.oscra.user.object.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +29,9 @@ public class AbsenceService {
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private AbsenceNotifService absenceNotifService;
+
     public List<Absence> findFakeAll(int dstPage){
         List<Absence> absences = new ArrayList<>();
         Page<Absence> absencePage=absenceDao.findAll(new PageRequest(dstPage, 10, new Sort(
@@ -44,14 +50,18 @@ public class AbsenceService {
 
     public Absence add(Long providerId, Long validatorId, Long lastModifyUserId, Absence absence) {
         setCraPVL(providerId, validatorId, lastModifyUserId, absence);
-        return absenceDao.save(absence);
+        Absence result = absenceDao.save(absence);
+        checkToSendNotifToValidate(result);
+        return result;
     }
 
     public Absence update(Long providerId, Long validatorId, Long lastModifyUserId, Absence absence) {
         Absence existedAbsence = absenceDao.findOne(absence.getId());
         existedAbsence.copyFrom(absence);
         setCraPVL(providerId, validatorId, lastModifyUserId, existedAbsence);
-        return absenceDao.save(existedAbsence);
+        Absence result = absenceDao.save(existedAbsence);
+        checkToSendNotifToValidate(result);
+        return result;
     }
 
     public Absence findById(Long absenceId) {
@@ -60,6 +70,12 @@ public class AbsenceService {
 
     public void delete(long absenceId) {
         absenceDao.delete(absenceId);
+    }
+
+    private void checkToSendNotifToValidate(Absence result){
+        if (result.getStatus() == AbsenceStatus.TRANSIMITTED_NOT_VALIDATED){
+            absenceNotifService.sendAbsenceToAdminToValidate(result.getProvider(), result.getValidator(), result, NotifAction.TO_VALIDATE);
+        }
     }
 
     // set cra's provider, validator, lastModifyUser
