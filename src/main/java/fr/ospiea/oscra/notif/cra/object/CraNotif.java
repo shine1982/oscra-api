@@ -30,6 +30,21 @@ public class CraNotif extends AbstractNotifEntity implements Serializable{
     private User crato;
 
 
+    public CraNotif(Cra cra, User from, User to, NotifAction notifAction) {
+        this.cra = cra;
+        this.crafrom = from;
+        this.crato = to;
+        this.notifAction = notifAction;
+    }
+
+    public CraNotif() {
+
+    }
+
+    public Long getId(){
+        return id;
+    }
+
     public User getCrafrom() {
         return crafrom;
     }
@@ -44,13 +59,6 @@ public class CraNotif extends AbstractNotifEntity implements Serializable{
 
     public void setCrato(User crato) {
         this.crato = crato;
-    }
-
-    public CraNotif(Cra cra, User from, User to, NotifAction notifAction) {
-        this.cra = cra;
-        this.crafrom = from;
-        this.crato = to;
-        this.notifAction = notifAction;
     }
 
     public String getDescription() {

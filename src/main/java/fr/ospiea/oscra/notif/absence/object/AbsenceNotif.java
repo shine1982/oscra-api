@@ -28,11 +28,19 @@ public class AbsenceNotif extends AbstractNotifEntity implements Serializable {
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH})
     private User absenceto;
 
+    public AbsenceNotif() {
+
+    }
+
     public AbsenceNotif(Absence absence, User from, User to, NotifAction notifAction) {
         this.absence = absence;
         this.absencefrom = from;
         this.absenceto = to;
         this.notifAction = notifAction;
+    }
+
+    public Long getId(){
+        return id;
     }
 
     public Absence getAbsence() {
