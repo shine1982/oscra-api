@@ -32,29 +32,23 @@ public class CraController {
     public Cra findById(@RequestParam long craId){
         return craService.findById(craId);
     }
-/*
+
     @RequestMapping(value = "/user/all", method= RequestMethod.GET)
-    public List<Cra> userall(@RequestParam long providerId, @RequestParam String start, @RequestParam String end){
-        //System.out.println(start);
-        //System.out.println(end);
-        return craService.findAllByInterval(providerId,start,end);
-        //return craService.findAllByProviderId(providerId);
+    public List<Cra> findAllByProviderId(@RequestParam Long providerId){
+        return craService.findAllByProviderid(providerId);
     }
 
-    @RequestMapping(value = "/admin/all", method= RequestMethod.GET)
-    public List<Cra> adminall(@RequestParam long validatorId){
-        return craService.findAllByValidatorId(validatorId);
-    }
-*/
+    /*
+        @RequestMapping(value = "/admin/all", method= RequestMethod.GET)
+        public List<Cra> adminall(@RequestParam long validatorId){
+            return craService.findAllByValidatorId(validatorId);
+        }
+    */
     @RequestMapping(value = "/add", method= RequestMethod.POST)
     public Cra add(@RequestParam long providerId, @RequestParam long validatorId,
                    @RequestParam long lastModifyUserId, @RequestBody Cra cra){
-
-
         return craService.add(providerId, validatorId, lastModifyUserId, cra);
     }
-
-
 
     @RequestMapping(value = "/update", method= RequestMethod.POST)
     public Cra update(@RequestParam long providerId, @RequestParam long validatorId,

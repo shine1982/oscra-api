@@ -57,6 +57,10 @@ public class CraService {
         return cras;
     }
 
+    public List<Cra> findAllByProviderid(Long providerId) {
+        return craDao.findAllByProviderId(providerId);
+    }
+
     public Cra add(long providerId, long validatorId, long lastModifyUserId, Cra cra) {
         setCraPVL(providerId, validatorId, lastModifyUserId, cra);
         cra.setActivities(setupActivities(cra, cra));
@@ -114,4 +118,6 @@ public class CraService {
         return  savedActivities;
 
     }
+
+
 }
