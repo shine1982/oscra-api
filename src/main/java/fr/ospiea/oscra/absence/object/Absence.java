@@ -19,6 +19,9 @@ public class Absence extends AbstractEntity implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date endtime;
 
+    @Enumerated(EnumType.STRING)
+    private AbsenceStatus status;
+
     private String description;
     @ManyToOne(fetch= FetchType.EAGER,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH})
@@ -33,8 +36,7 @@ public class Absence extends AbstractEntity implements Serializable {
     @JoinColumn(name ="last_modify_user_id")
     private User lastModifyUser;
 
-    @Enumerated(EnumType.STRING)
-    private AbsenceStatus status;
+
 
     public Date getUpdated(){
         return updated;
@@ -58,6 +60,14 @@ public class Absence extends AbstractEntity implements Serializable {
 
     public void setEndtime(Date endtime) {
         this.endtime = endtime;
+    }
+
+    public AbsenceStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(AbsenceStatus status) {
+        this.status = status;
     }
 
     public String getDescription() {
@@ -90,14 +100,6 @@ public class Absence extends AbstractEntity implements Serializable {
 
     public void setLastModifyUser(User lastModifyUser) {
         this.lastModifyUser = lastModifyUser;
-    }
-
-    public AbsenceStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(AbsenceStatus status) {
-        this.status = status;
     }
 
     public void copyFrom(Absence absence){

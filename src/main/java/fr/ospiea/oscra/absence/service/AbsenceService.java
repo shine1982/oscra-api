@@ -84,7 +84,7 @@ public class AbsenceService {
     }
 
     private void checkToSendNotifToValidate(Absence result){
-        if (result.getStatus() == AbsenceStatus.TRANSIMITTED_NOT_VALIDATED){
+        if (result.getStatus() == AbsenceStatus.TO_VALIDATE){
             absenceNotifService.sendAbsenceToAdminToValidate(result.getProvider(), result.getValidator(), result, NotifEntityStatus.TO_VALIDATE);
         }
     }
