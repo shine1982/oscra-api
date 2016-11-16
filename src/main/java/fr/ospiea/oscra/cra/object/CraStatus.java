@@ -5,6 +5,8 @@ package fr.ospiea.oscra.cra.object;
  */
 public enum CraStatus {
     NOT_TRANSIMITTED,
-    TRANSIMITTED_NOT_VALIDATED,
-    VALIDATED_TRANSIMITTED
+    TRANSIMITTED_TO_VALIDATE,
+    TRANSIMITTED_AGREED,
+    TRANSIMITTED_REFUSED
+
 }

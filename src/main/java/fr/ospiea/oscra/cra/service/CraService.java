@@ -97,7 +97,7 @@ public class CraService {
     }
 
     private void checkToSendNotifToValidate(Cra result){
-        if (result.getStatus() == CraStatus.TRANSIMITTED_NOT_VALIDATED){
+        if (result.getStatus() == CraStatus.TRANSIMITTED_TO_VALIDATE){
             craNotifService.sendAbsenceToAdminToValidate(result.getProvider(), result.getValidator(), result, NotifEntityStatus.TO_VALIDATE);
         }
 
