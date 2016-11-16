@@ -27,6 +27,11 @@ public class UserController {
         return userService.findAll();
     }
 
+    @RequestMapping(value = "/manager/all", method= RequestMethod.GET)
+    public List<User> allmanager(){
+        return userService.findAllManagers();
+    }
+
     @RequestMapping(value = "/add", method= RequestMethod.POST)
     public User add(@RequestBody User user){
         return userService.add(user);

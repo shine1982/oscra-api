@@ -1,11 +1,10 @@
 package fr.ospiea.oscra.cra.service;
 
-import fr.ospiea.oscra.activity.dao.ActivityDao;
 import fr.ospiea.oscra.activity.object.Activity;
 import fr.ospiea.oscra.cra.dao.CraDao;
 import fr.ospiea.oscra.cra.object.Cra;
 import fr.ospiea.oscra.cra.object.CraStatus;
-import fr.ospiea.oscra.notif.common.NotifAction;
+import fr.ospiea.oscra.notif.common.NotifEntityStatus;
 import fr.ospiea.oscra.notif.cra.service.CraNotifService;
 import fr.ospiea.oscra.setting.activity.dao.ActivityTypeDao;
 import fr.ospiea.oscra.setting.activity.object.ActivityType;
@@ -18,7 +17,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import static org.springframework.data.domain.Sort.Direction.DESC;
@@ -100,7 +98,7 @@ public class CraService {
 
     private void checkToSendNotifToValidate(Cra result){
         if (result.getStatus() == CraStatus.TRANSIMITTED_NOT_VALIDATED){
-            craNotifService.sendAbsenceToAdminToValidate(result.getProvider(), result.getValidator(), result, NotifAction.TO_VALIDATE);
+            craNotifService.sendAbsenceToAdminToValidate(result.getProvider(), result.getValidator(), result, NotifEntityStatus.TO_VALIDATE);
         }
 
     }

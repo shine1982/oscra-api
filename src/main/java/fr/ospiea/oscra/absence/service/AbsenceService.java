@@ -4,7 +4,7 @@ import fr.ospiea.oscra.absence.dao.AbsenceDao;
 import fr.ospiea.oscra.absence.object.Absence;
 import fr.ospiea.oscra.absence.object.AbsenceStatus;
 import fr.ospiea.oscra.notif.absence.service.AbsenceNotifService;
-import fr.ospiea.oscra.notif.common.NotifAction;
+import fr.ospiea.oscra.notif.common.NotifEntityStatus;
 import fr.ospiea.oscra.user.dao.UserDao;
 import fr.ospiea.oscra.user.object.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +42,17 @@ public class AbsenceService {
         return absences;
     }
 
+    public List<Absence> findByUserIdFakeAll(int dstPage, Long providerId) {
+        List<Absence> absences = new ArrayList<>();
+        Page<Absence> absencePage=absenceDao.findByProviderId(providerId, new PageRequest(dstPage, 10, new Sort(
+                new Sort.Order(DESC, "updated"
+                )))
+        );
+        absencePage.getContent().iterator().forEachRemaining(absences::add);
+        return absences;
+
+    }
+
     public List<Absence> findAll() {
         List<Absence> absences = new ArrayList<>();
         absenceDao.findAll().iterator().forEachRemaining(absences::add);
@@ -74,7 +85,7 @@ public class AbsenceService {
 
     private void checkToSendNotifToValidate(Absence result){
         if (result.getStatus() == AbsenceStatus.TRANSIMITTED_NOT_VALIDATED){
-            absenceNotifService.sendAbsenceToAdminToValidate(result.getProvider(), result.getValidator(), result, NotifAction.TO_VALIDATE);
+            absenceNotifService.sendAbsenceToAdminToValidate(result.getProvider(), result.getValidator(), result, NotifEntityStatus.TO_VALIDATE);
         }
     }
 
@@ -87,6 +98,7 @@ public class AbsenceService {
         absence.setValidator(validator);
         absence.setLastModifyUser(lastModifyUser);
     }
+
 
 
 }

@@ -18,8 +18,13 @@ public class AbsenceController {
     private AbsenceService absenceService;
 
     @RequestMapping(value = "/fakeall", method= RequestMethod.GET)
-    public List<Absence> craFakeAll(@RequestParam int dstPage) {
+    public List<Absence> absenceFakeAll(@RequestParam int dstPage) {
         return absenceService.findFakeAll(dstPage);
+    }
+
+    @RequestMapping(value = "user/fakeall", method= RequestMethod.GET)
+    public List<Absence> userAbsenceFakeAll(@RequestParam int dstPage, @RequestParam long providerId) {
+        return absenceService.findByUserIdFakeAll(dstPage, providerId);
     }
 
     @RequestMapping(value = "/all", method= RequestMethod.GET)

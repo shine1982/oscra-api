@@ -28,7 +28,6 @@ public class Cra extends AbstractEntity implements Serializable {
     @JoinColumn(name ="last_modify_user_id")
     private User lastModifyUser;
 
-
     @ManyToOne(fetch= FetchType.EAGER,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name ="provider_id")
@@ -38,7 +37,6 @@ public class Cra extends AbstractEntity implements Serializable {
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name ="validator_id")
     private User validator;
-
 
     @OneToMany(mappedBy = "cra", cascade = CascadeType.ALL)
     private List<Activity> activities;

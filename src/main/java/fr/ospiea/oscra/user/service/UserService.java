@@ -1,6 +1,7 @@
 package fr.ospiea.oscra.user.service;
 
 import fr.ospiea.oscra.user.dao.UserDao;
+import fr.ospiea.oscra.user.object.Role;
 import fr.ospiea.oscra.user.object.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -63,4 +64,9 @@ public class UserService {
         userDao.delete(userId);
     }
 
+    public List<User> findAllManagers() {
+        List<User> managers = new ArrayList<>();
+        userDao.findAllUsersByRole(Role.ADMIN).iterator().forEachRemaining(managers::add);
+        return managers;
+    }
 }

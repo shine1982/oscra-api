@@ -26,8 +26,8 @@ public class CraNotifController {
     }
 
     @RequestMapping(value = "/sent/fakeall", method= RequestMethod.GET)
-    public List<CraNotif> absenceNotifFromUserAll(@RequestParam int dstPage, @RequestParam Long craId) {
-        return craNotifService.findSentCraNotifFakeAll(craId, dstPage);
+    public List<CraNotif> absenceNotifFromUserAll(@RequestParam int dstPage, @RequestParam Long crafromId) {
+        return craNotifService.findSentCraNotifFakeAll(crafromId, dstPage);
     }
 }
 

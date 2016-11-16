@@ -2,7 +2,7 @@ package fr.ospiea.oscra.notif.cra.object;
 
 import fr.ospiea.oscra.cra.object.Cra;
 import fr.ospiea.oscra.notif.common.AbstractNotifEntity;
-import fr.ospiea.oscra.notif.common.NotifAction;
+import fr.ospiea.oscra.notif.common.NotifEntityStatus;
 import fr.ospiea.oscra.user.object.User;
 
 import javax.persistence.*;
@@ -13,7 +13,7 @@ import java.io.Serializable;
  */
 @Entity
 public class CraNotif extends AbstractNotifEntity implements Serializable{
-    private String description;
+
 
     @ManyToOne(fetch= FetchType.EAGER,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH})
@@ -29,12 +29,13 @@ public class CraNotif extends AbstractNotifEntity implements Serializable{
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH})
     private User crato;
 
+    private String description;
 
-    public CraNotif(Cra cra, User from, User to, NotifAction notifAction) {
+    public CraNotif(Cra cra, User from, User to, NotifEntityStatus notifEntityStatus) {
         this.cra = cra;
         this.crafrom = from;
         this.crato = to;
-        this.notifAction = notifAction;
+        this.notifEntityStatus = notifEntityStatus;
     }
 
     public CraNotif() {
@@ -69,12 +70,19 @@ public class CraNotif extends AbstractNotifEntity implements Serializable{
         this.description = description;
     }
 
-
     public Cra getCra() {
         return cra;
     }
 
     public void setCra(Cra cra) {
         this.cra = cra;
+    }
+
+    public NotifEntityStatus getNotifEntityStatus(){
+        return notifEntityStatus;
+    }
+
+    public void setNotifEntityStatus(NotifEntityStatus notifEntityStatus){
+        this.notifEntityStatus = notifEntityStatus;
     }
 }

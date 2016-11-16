@@ -4,8 +4,7 @@ import fr.ospiea.oscra.absence.object.Absence;
 import fr.ospiea.oscra.notif.absence.dao.AbsenceNotifDao;
 import fr.ospiea.oscra.notif.absence.object.AbsenceNotif;
 
-import fr.ospiea.oscra.notif.common.NotifAction;
-import fr.ospiea.oscra.user.dao.UserDao;
+import fr.ospiea.oscra.notif.common.NotifEntityStatus;
 import fr.ospiea.oscra.user.object.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,7 +23,7 @@ public class AbsenceNotifService {
     @Autowired
     private AbsenceNotifDao absenceNotifDao;
 
-    public void sendAbsenceToAdminToValidate(User from, User to, Absence absence, NotifAction action){
+    public void sendAbsenceToAdminToValidate(User from, User to, Absence absence, NotifEntityStatus action){
         AbsenceNotif absenceNotif = new AbsenceNotif(absence, from, to, action);
         absenceNotifDao.save(absenceNotif);
     }

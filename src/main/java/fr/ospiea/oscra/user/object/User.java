@@ -39,6 +39,13 @@ public class User extends AbstractEntity implements Serializable{
     @Enumerated(EnumType.STRING)
     private Civility civility;
 
+    @ManyToOne
+    private User manager;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "manager")
+    private List<User> employees;
+
     @JsonIgnore
     @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL)
     private List<Cra> cras;
@@ -54,7 +61,6 @@ public class User extends AbstractEntity implements Serializable{
     @JsonIgnore
     @OneToMany(mappedBy = "absenceto", cascade = CascadeType.ALL)
     private List<AbsenceNotif> receievedAbsenceNotifs;
-
 
     @JsonIgnore
     @OneToMany(mappedBy = "crafrom", cascade = CascadeType.ALL)
@@ -255,6 +261,21 @@ public class User extends AbstractEntity implements Serializable{
         this.receievedCraNotifs = receievedCraNotifs;
     }
 
+    public User getManager() {
+        return manager;
+    }
+
+    public void setManager(User manager) {
+        this.manager = manager;
+    }
+
+    public List<User> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<User> employees) {
+        this.employees = employees;
+    }
 
     public void copyFrom(User user){
         Field [] attributes =  user.getClass().getDeclaredFields();
