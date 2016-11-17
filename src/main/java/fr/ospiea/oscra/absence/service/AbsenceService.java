@@ -5,6 +5,8 @@ import fr.ospiea.oscra.absence.object.Absence;
 import fr.ospiea.oscra.absence.object.AbsenceStatus;
 import fr.ospiea.oscra.notif.absence.service.AbsenceNotifService;
 import fr.ospiea.oscra.notif.common.NotifEntityStatus;
+import fr.ospiea.oscra.setting.activity.dao.ActivityTypeDao;
+import fr.ospiea.oscra.setting.activity.object.ActivityType;
 import fr.ospiea.oscra.user.dao.UserDao;
 import fr.ospiea.oscra.user.object.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,9 @@ public class AbsenceService {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private ActivityTypeDao activityTypeDao;
 
     @Autowired
     private AbsenceNotifService absenceNotifService;
@@ -59,16 +64,22 @@ public class AbsenceService {
         return absences;
     }
 
-    public Absence add(Long providerId, Long validatorId, Long lastModifyUserId, Absence absence) {
+    public Absence add(Long absenceTypeId, Long providerId, Long validatorId, Long lastModifyUserId, Absence absence) {
         setCraPVL(providerId, validatorId, lastModifyUserId, absence);
+        ActivityType absenceType = activityTypeDao.findOne(absenceTypeId);
+        absence.setAbsenceType(absenceType);
         Absence result = absenceDao.save(absence);
         checkToSendNotifToValidate(result);
         return result;
     }
 
-    public Absence update(Long providerId, Long validatorId, Long lastModifyUserId, Absence absence) {
+    public Absence update(Long absenceTypeId, Long providerId, Long validatorId, Long lastModifyUserId, Absence absence) {
         Absence existedAbsence = absenceDao.findOne(absence.getId());
         existedAbsence.copyFrom(absence);
+
+        ActivityType absenceType = activityTypeDao.findOne(absenceTypeId);
+        existedAbsence.setAbsenceType(absenceType);
+
         setCraPVL(providerId, validatorId, lastModifyUserId, existedAbsence);
         Absence result = absenceDao.save(existedAbsence);
         checkToSendNotifToValidate(result);

@@ -1,6 +1,8 @@
 package fr.ospiea.oscra.absence.object;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import fr.ospiea.oscra.common.AbstractEntity;
+import fr.ospiea.oscra.notif.absence.object.AbsenceNotif;
 import fr.ospiea.oscra.setting.activity.object.ActivityType;
 import fr.ospiea.oscra.user.object.User;
 
@@ -8,6 +10,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by taozheng on 03/11/2016.
@@ -24,6 +27,7 @@ public class Absence extends AbstractEntity implements Serializable {
     private AbsenceStatus status;
 
     private String description;
+
     @ManyToOne(fetch= FetchType.EAGER,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name ="provider_id")
@@ -42,10 +46,16 @@ public class Absence extends AbstractEntity implements Serializable {
     @JoinColumn(name ="absencetype_id")
     private ActivityType absenceType;
 
-
+    @JsonIgnore
+    @OneToMany(mappedBy = "absence", cascade = CascadeType.ALL)
+    private List<AbsenceNotif> absenceNotifs;
 
     public Date getUpdated(){
         return updated;
+    }
+
+    public void setUpdated(){
+        this.updated = updated;
     }
 
     public Long getId(){
@@ -116,12 +126,20 @@ public class Absence extends AbstractEntity implements Serializable {
         this.absenceType = absenceType;
     }
 
+    public List<AbsenceNotif> getAbsenceNotifs() {
+        return absenceNotifs;
+    }
+
+    public void setAbsenceNotifs(List<AbsenceNotif> absenceNotifs) {
+        this.absenceNotifs = absenceNotifs;
+    }
+
     public void copyFrom(Absence absence){
         Field[] attributes =  absence.getClass().getDeclaredFields();
         for (Field field: attributes){
             try {
-                if (field.getName()!="lastModifyUser"
-                        || field.getName()!="provider" || field.getName()!="validator")
+                if (field.getName()!="lastModifyUser" || field.getName()!="provider"
+                        || field.getName()!="validator" || field.getName()!="absenceType")
                     field.set(this,field.get(absence));
             } catch (IllegalAccessException e) {
                 e.printStackTrace();

@@ -33,15 +33,15 @@ public class AbsenceController {
     }
 
     @RequestMapping(value = "/add", method= RequestMethod.POST)
-    public Absence add(@RequestParam long providerId, @RequestParam long validatorId,
+    public Absence add(@RequestParam long providerId, @RequestParam long validatorId, @RequestParam long absenceTypeId,
                    @RequestParam long lastModifyUserId, @RequestBody Absence absence){
-        return absenceService.add(providerId, validatorId, lastModifyUserId, absence);
+        return absenceService.add(absenceTypeId, providerId,  validatorId, lastModifyUserId, absence);
     }
 
     @RequestMapping(value = "/update", method= RequestMethod.POST)
-    public Absence update(@RequestParam long providerId, @RequestParam long validatorId,
+    public Absence update(@RequestParam long providerId, @RequestParam long validatorId, @RequestParam long absenceTypeId,
                           @RequestParam long lastModifyUserId, @RequestBody Absence absence){
-        return absenceService.update(providerId, validatorId, lastModifyUserId, absence);
+        return absenceService.update(absenceTypeId, providerId, validatorId, lastModifyUserId, absence);
     }
 
     @RequestMapping(value = "/findById", method= RequestMethod.GET)
