@@ -24,6 +24,12 @@ public class ActivityTypeController {
         return activityTypeService.findAll();
     }
 
+
+    @RequestMapping(value = "/absence/all", method= RequestMethod.GET)
+    public List<ActivityType> allAbsenceCategory(@RequestParam String category){
+        return activityTypeService.findCategoryOfAbsence(category);
+    }
+
     @RequestMapping(value = "/add", method= RequestMethod.POST)
     public ActivityType add(@RequestBody ActivityType activityType){
         return activityTypeService.add(activityType);

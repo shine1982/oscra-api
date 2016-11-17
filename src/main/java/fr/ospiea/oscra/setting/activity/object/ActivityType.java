@@ -24,14 +24,16 @@ public class ActivityType extends AbstractEntity implements Serializable {
     @Column(unique=true)
     private String name;
 
-    private String label;
+    private String category;
 
-    public String getLabel() {
-        return label;
+    private String description;
+
+    public String getDescription() {
+        return description;
     }
 
-    public void setLabel(String label) {
-        this.label = label;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getName() {
@@ -50,6 +52,14 @@ public class ActivityType extends AbstractEntity implements Serializable {
         return id;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     public void copyFrom(ActivityType activityType){
         Field[] attributes =  activityType.getClass().getDeclaredFields();
         for (Field field: attributes){
@@ -61,22 +71,5 @@ public class ActivityType extends AbstractEntity implements Serializable {
         }
     }
 
-
-    @Override
-    public String toString() {
-        return "ActivityType{" +
-                "id='" + id + '\'' +
-                "name='" + name + '\'' +
-                '}';
-    }
-/*
-    public List<Activity> getActivities() {
-        return activities;
-    }
-
-    public void setActivities(List<Activity> activities) {
-        this.activities = activities;
-    }
-    */
 
 }

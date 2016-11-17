@@ -45,4 +45,10 @@ public class ActivityTypeService {
     public void delete(Long activityTypeId) {
         activityTypeDao.delete(activityTypeId);
     }
+
+    public List<ActivityType> findCategoryOfAbsence(String category) {
+        List<ActivityType> activitiesOfAbsence = new ArrayList<>();
+        activityTypeDao.findAllByCategory(category).iterator().forEachRemaining(activitiesOfAbsence::add);
+        return activitiesOfAbsence;
+    }
 }

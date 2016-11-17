@@ -1,6 +1,7 @@
 package fr.ospiea.oscra.absence.object;
 
 import fr.ospiea.oscra.common.AbstractEntity;
+import fr.ospiea.oscra.setting.activity.object.ActivityType;
 import fr.ospiea.oscra.user.object.User;
 
 import javax.persistence.*;
@@ -35,6 +36,11 @@ public class Absence extends AbstractEntity implements Serializable {
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name ="last_modify_user_id")
     private User lastModifyUser;
+
+    @OneToOne(fetch= FetchType.EAGER,
+            cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH})
+    @JoinColumn(name ="absencetype_id")
+    private ActivityType absenceType;
 
 
 
@@ -100,6 +106,14 @@ public class Absence extends AbstractEntity implements Serializable {
 
     public void setLastModifyUser(User lastModifyUser) {
         this.lastModifyUser = lastModifyUser;
+    }
+
+    public ActivityType getAbsenceType() {
+        return absenceType;
+    }
+
+    public void setAbsenceType(ActivityType absenceType) {
+        this.absenceType = absenceType;
     }
 
     public void copyFrom(Absence absence){
