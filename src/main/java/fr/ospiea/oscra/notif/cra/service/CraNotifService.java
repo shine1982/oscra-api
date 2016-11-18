@@ -22,7 +22,7 @@ public class CraNotifService {
     @Autowired
     private CraNotifDao craNotifDao;
 
-    public void sendAbsenceToAdminToValidate(User from, User to, Cra cra, NotifEntityStatus action){
+    public void sendCraNotif(User from, User to, Cra cra, NotifEntityStatus action){
         CraNotif craNotif = new CraNotif(cra, from, to, action);
         craNotifDao.save(craNotif);
     }

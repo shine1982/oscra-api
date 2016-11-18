@@ -23,7 +23,7 @@ public class AbsenceNotifService {
     @Autowired
     private AbsenceNotifDao absenceNotifDao;
 
-    public void sendAbsenceToAdminToValidate(User from, User to, Absence absence, NotifEntityStatus action){
+    public void sendAbsenceNotif(User from, User to, Absence absence, NotifEntityStatus action){
         AbsenceNotif absenceNotif = new AbsenceNotif(absence, from, to, action);
         absenceNotifDao.save(absenceNotif);
     }

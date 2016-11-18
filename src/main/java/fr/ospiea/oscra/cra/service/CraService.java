@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import static org.springframework.data.domain.Sort.Direction.DESC;
 
 /**
@@ -63,7 +64,7 @@ public class CraService {
         setCraPVL(providerId, validatorId, lastModifyUserId, cra);
         cra.setActivities(setupActivities(cra, cra));
         Cra result = craDao.save(cra);
-        checkToSendNotifToValidate(result);
+        checkToSendNotif(result);
         return result;
     }
 
@@ -77,7 +78,7 @@ public class CraService {
         setCraPVL(providerId, validatorId, lastModifyUserId, existedCra);
         existedCra.setActivities(setupActivities(cra, existedCra));
         Cra result = craDao.save( existedCra);
-        checkToSendNotifToValidate(result);
+        checkToSendNotif(result);
         return result;
     }
 
@@ -96,11 +97,18 @@ public class CraService {
         cra.setLastModifyUser(lastModifyUser);
     }
 
-    private void checkToSendNotifToValidate(Cra result){
-        if (result.getStatus() == CraStatus.TRANSIMITTED_TO_VALIDATE){
-            craNotifService.sendAbsenceToAdminToValidate(result.getProvider(), result.getValidator(), result, NotifEntityStatus.TO_VALIDATE);
+    private void checkToSendNotif(Cra result){
+        switch (result.getStatus()){
+            case TRANSIMITTED_TO_VALIDATE:
+                craNotifService.sendCraNotif(result.getProvider(), result.getValidator(), result, NotifEntityStatus.TO_VALIDATE);
+                break;
+            case TRANSIMITTED_AGREED:
+                craNotifService.sendCraNotif(result.getProvider(), result.getValidator(), result, NotifEntityStatus.AGREED);
+                break;
+            case TRANSIMITTED_REFUSED:
+                craNotifService.sendCraNotif(result.getProvider(), result.getValidator(), result, NotifEntityStatus.REFUESED);
+                break;
         }
-
     }
 
     private List<Activity> setupActivities(Cra cra, Cra existedCra){

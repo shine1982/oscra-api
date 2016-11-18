@@ -2,7 +2,6 @@ package fr.ospiea.oscra.absence.service;
 
 import fr.ospiea.oscra.absence.dao.AbsenceDao;
 import fr.ospiea.oscra.absence.object.Absence;
-import fr.ospiea.oscra.absence.object.AbsenceStatus;
 import fr.ospiea.oscra.notif.absence.service.AbsenceNotifService;
 import fr.ospiea.oscra.notif.common.NotifEntityStatus;
 import fr.ospiea.oscra.setting.activity.dao.ActivityTypeDao;
@@ -69,7 +68,7 @@ public class AbsenceService {
         ActivityType absenceType = activityTypeDao.findOne(absenceTypeId);
         absence.setAbsenceType(absenceType);
         Absence result = absenceDao.save(absence);
-        checkToSendNotifToValidate(result);
+        checkToSendNotif(result);
         return result;
     }
 
@@ -82,7 +81,7 @@ public class AbsenceService {
 
         setCraPVL(providerId, validatorId, lastModifyUserId, existedAbsence);
         Absence result = absenceDao.save(existedAbsence);
-        checkToSendNotifToValidate(result);
+        checkToSendNotif(result);
         return result;
     }
 
@@ -94,10 +93,19 @@ public class AbsenceService {
         absenceDao.delete(absenceId);
     }
 
-    private void checkToSendNotifToValidate(Absence result){
-        if (result.getStatus() == AbsenceStatus.TO_VALIDATE){
-            absenceNotifService.sendAbsenceToAdminToValidate(result.getProvider(), result.getValidator(), result, NotifEntityStatus.TO_VALIDATE);
+    private void checkToSendNotif(Absence result){
+        switch (result.getStatus()){
+            case TO_VALIDATE:
+                absenceNotifService.sendAbsenceNotif(result.getProvider(), result.getValidator(), result, NotifEntityStatus.TO_VALIDATE);
+                break;
+            case AGREED:
+                absenceNotifService.sendAbsenceNotif(result.getProvider(), result.getValidator(), result, NotifEntityStatus.AGREED);
+                break;
+            case REFUSED:
+                absenceNotifService.sendAbsenceNotif(result.getProvider(), result.getValidator(), result, NotifEntityStatus.REFUESED);
+                break;
         }
+
     }
 
     // set cra's provider, validator, lastModifyUser
