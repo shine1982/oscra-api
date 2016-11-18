@@ -1,7 +1,9 @@
 package fr.ospiea.oscra.cra.object;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import fr.ospiea.oscra.activity.object.Activity;
 import fr.ospiea.oscra.common.AbstractEntity;
+import fr.ospiea.oscra.notif.cra.object.CraNotif;
 import fr.ospiea.oscra.user.object.User;
 
 import javax.persistence.*;
@@ -40,6 +42,10 @@ public class Cra extends AbstractEntity implements Serializable {
 
     @OneToMany(mappedBy = "cra", cascade = CascadeType.ALL)
     private List<Activity> activities;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "cra", cascade = CascadeType.ALL)
+    private List<CraNotif> craNotifs;
 
     public List<Activity> getActivities() {
         return activities;
@@ -115,6 +121,15 @@ public class Cra extends AbstractEntity implements Serializable {
     public Date getUpdated(){
         return updated;
     }
+
+    public List<CraNotif> getCraNotifs() {
+        return craNotifs;
+    }
+
+    public void setCraNotifs(List<CraNotif> craNotifs) {
+        this.craNotifs = craNotifs;
+    }
+
 
     public void copyFrom(Cra cra){
         Field[] attributes =  cra.getClass().getDeclaredFields();
