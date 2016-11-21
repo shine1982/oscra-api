@@ -19,7 +19,7 @@ public abstract class AbstractEntity {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated", nullable = false)
-    private Date updated;
+    protected Date updated;
 
     @PrePersist
     protected void onCreate() {
@@ -30,8 +30,5 @@ public abstract class AbstractEntity {
     protected void onUpdate() {
         updated = new Date();
     }
-
-
-
 
 }

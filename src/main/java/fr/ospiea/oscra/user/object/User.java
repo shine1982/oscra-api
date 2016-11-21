@@ -1,34 +1,36 @@
 // tag::sample[]
 package fr.ospiea.oscra.user.object;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import fr.ospiea.oscra.common.AbstractEntity;
+import fr.ospiea.oscra.cra.object.Cra;
+import fr.ospiea.oscra.notif.absence.object.AbsenceNotif;
+import fr.ospiea.oscra.notif.cra.object.CraNotif;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.Date;
+import java.util.List;
+
 
 @Entity
 public class User extends AbstractEntity implements Serializable{
-
-    private long id;
 
     private String username;
     private String firstName;
     private String lastName;
     private String email;
+    @JsonIgnore
     private String password;
     private boolean enabled;
-
     @Enumerated(EnumType.STRING)
     private Role role;
-
     private String roadNumber;
     private String road;
     private String supplementaryAddress;
     private String postalCode;
     private String city;
-
     private String phoneNumber;
     @Temporal(TemporalType.TIMESTAMP)
     private Date birthday;
@@ -37,8 +39,38 @@ public class User extends AbstractEntity implements Serializable{
     @Enumerated(EnumType.STRING)
     private Civility civility;
 
+    @ManyToOne
+    private User manager;
 
-    public long getId() {
+    @JsonIgnore
+    @OneToMany(mappedBy = "manager")
+    private List<User> employees;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL)
+    private List<Cra> cras;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "validator", cascade = CascadeType.ALL)
+    private List<Cra> adminCheckCras;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "absencefrom", cascade = CascadeType.ALL)
+    private List<AbsenceNotif> sentAbsenceNotifs;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "absenceto", cascade = CascadeType.ALL)
+    private List<AbsenceNotif> receievedAbsenceNotifs;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "crafrom", cascade = CascadeType.ALL)
+    private List<CraNotif> sentCraNotifs;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "crato", cascade = CascadeType.ALL)
+    private List<CraNotif> receievedCraNotifs;
+
+    public Long getId() {
         return id;
     }
 
@@ -179,6 +211,71 @@ public class User extends AbstractEntity implements Serializable{
     }
 
     protected User() {}
+
+    public List<Cra> getCras() {
+        return cras;
+    }
+
+    public void setCras(List<Cra> cras) {
+        this.cras = cras;
+    }
+
+    public List<Cra> getAdminCheckCras() {
+        return adminCheckCras;
+    }
+
+    public void setAdminCheckCras(List<Cra> adminCheckCras) {
+        this.adminCheckCras = adminCheckCras;
+    }
+
+    public List<AbsenceNotif> getSentAbsenceNotifs() {
+        return sentAbsenceNotifs;
+    }
+
+    public void setSentAbsenceNotifs(List<AbsenceNotif> sentAbsenceNotifs) {
+        this.sentAbsenceNotifs = sentAbsenceNotifs;
+    }
+
+    public List<AbsenceNotif> getReceievedAbsenceNotifs() {
+        return receievedAbsenceNotifs;
+    }
+
+    public void setReceievedAbsenceNotifs(List<AbsenceNotif> receievedAbsenceNotifs) {
+        this.receievedAbsenceNotifs = receievedAbsenceNotifs;
+    }
+
+
+    public List<CraNotif> getSentCraNotifs() {
+        return sentCraNotifs;
+    }
+
+    public void setSentCraNotifs(List<CraNotif> sentCraNotifs) {
+        this.sentCraNotifs = sentCraNotifs;
+    }
+
+    public List<CraNotif> getReceievedCraNotifs() {
+        return receievedCraNotifs;
+    }
+
+    public void setReceievedCraNotifs(List<CraNotif> receievedCraNotifs) {
+        this.receievedCraNotifs = receievedCraNotifs;
+    }
+
+    public User getManager() {
+        return manager;
+    }
+
+    public void setManager(User manager) {
+        this.manager = manager;
+    }
+
+    public List<User> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<User> employees) {
+        this.employees = employees;
+    }
 
     public void copyFrom(User user){
         Field [] attributes =  user.getClass().getDeclaredFields();

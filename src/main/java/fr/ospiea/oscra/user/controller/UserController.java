@@ -17,9 +17,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/add", method= RequestMethod.POST)
-    public User add(@RequestBody User user){
-        return userService.add(user);
+    @RequestMapping(value = "/fakeall", method= RequestMethod.GET)
+    public List<User> craFakeAll(@RequestParam int dstPage) {
+        return userService.findFakeAll(dstPage);
     }
 
     @RequestMapping(value = "/all", method= RequestMethod.GET)
@@ -27,8 +27,18 @@ public class UserController {
         return userService.findAll();
     }
 
+    @RequestMapping(value = "/manager/all", method= RequestMethod.GET)
+    public List<User> allmanager(){
+        return userService.findAllManagers();
+    }
+
+    @RequestMapping(value = "/add", method= RequestMethod.POST)
+    public User add(@RequestBody User user){
+        return userService.add(user);
+    }
+
     @RequestMapping(value = "/findById", method= RequestMethod.GET)
-    public User findById(@RequestParam Long userId){
+    public User findById(@RequestParam long userId){
         return userService.findById(userId);
     }
 
@@ -38,7 +48,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/delete", method= RequestMethod.POST)
-    public void delete(@RequestParam Long userId){
+    public void delete(@RequestParam long userId){
         userService.delete(userId);
     }
 
