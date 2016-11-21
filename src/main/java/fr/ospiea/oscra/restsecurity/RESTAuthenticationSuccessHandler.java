@@ -35,6 +35,9 @@ public class RESTAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuc
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
+        System.out.println("================================================ User is connected ================================================");
+        System.out.println(authentication.getPrincipal());
+        //System.out.println(authentication.getPrincipal().getUser());
 
         clearAuthenticationAttributes(request);
 
