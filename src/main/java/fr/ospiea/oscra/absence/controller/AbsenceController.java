@@ -53,18 +53,5 @@ public class AbsenceController {
     public void delete(@RequestParam Long absenceId){
         absenceService.delete(absenceId);
     }
-/*
-
-
-
-
-    @RequestMapping(value = "/delete", method= RequestMethod.POST)
-    public void delete(@RequestParam long activityId){
-        activityService.delete(activityId);
-    }
-
-*/
-
-
 
 }
