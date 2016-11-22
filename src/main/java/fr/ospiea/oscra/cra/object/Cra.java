@@ -16,6 +16,7 @@ import java.util.List;
  * Created by taozheng on 13/10/2016.
  */
 @Entity
+@Table(name = "oscra_cra")
 public class Cra extends AbstractEntity implements Serializable {
 
     private Date month;

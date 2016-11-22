@@ -16,6 +16,7 @@ import java.util.List;
  * Created by taozheng on 03/11/2016.
  */
 @Entity
+@Table(name = "oscra_absence")
 public class Absence extends AbstractEntity implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date starttime;

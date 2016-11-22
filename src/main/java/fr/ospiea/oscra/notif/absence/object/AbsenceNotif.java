@@ -12,6 +12,7 @@ import java.io.Serializable;
  * Created by taozheng on 09/11/2016.
  */
 @Entity
+@Table(name = "oscra_absencenotif")
 public class AbsenceNotif extends AbstractNotifEntity implements Serializable {
     private String description;
     @ManyToOne(fetch= FetchType.EAGER,

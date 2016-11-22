@@ -3,10 +3,7 @@ package fr.ospiea.oscra.setting.activity.object;
 import fr.ospiea.oscra.activity.object.Activity;
 import fr.ospiea.oscra.common.AbstractEntity;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.Date;
@@ -16,6 +13,7 @@ import java.util.List;
  * Created by taozheng on 25/10/2016.
  */
 @Entity
+@Table(name = "oscra_activitytype")
 public class ActivityType extends AbstractEntity implements Serializable {
 /*
     @OneToMany(mappedBy = "activityType", cascade = CascadeType.ALL)

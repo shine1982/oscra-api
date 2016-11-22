@@ -15,6 +15,7 @@ import java.util.Date;
  * Created by taozheng on 11/10/2016.
  */
 @Entity
+@Table(name = "oscra_activity")
 public class Activity extends AbstractEntity implements Serializable {
 
     private Date starttime;

@@ -12,6 +12,7 @@ import java.io.Serializable;
  * Created by taozheng on 10/11/2016.
  */
 @Entity
+@Table(name = "oscra_cranotif")
 public class CraNotif extends AbstractNotifEntity implements Serializable{
 
 
