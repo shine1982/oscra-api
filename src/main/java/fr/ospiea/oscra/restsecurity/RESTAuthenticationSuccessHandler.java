@@ -37,6 +37,15 @@ public class RESTAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuc
                                         Authentication authentication) throws IOException, ServletException {
         System.out.println("================================================ User is connected ================================================");
         System.out.println(authentication.getPrincipal());
+        response.getWriter().write(authentication.getPrincipal().toString());
+        response.getWriter().flush();
+        response.getWriter().close();
+        System.out.println(request);
+        System.out.println(request.getParameter("username"));
+        System.out.println(request.getSession());
+        System.out.println(request.getSession().getId());
+        System.out.println(response);
+        System.out.println(response);
         //System.out.println(authentication.getPrincipal().getUser());
 
         clearAuthenticationAttributes(request);

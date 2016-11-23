@@ -59,17 +59,17 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
                 .and()
                 .sessionManagement()
                 .maximumSessions(1);
-        //http.authorizeRequests().antMatchers("/**").authenticated();
-        http.authorizeRequests().antMatchers("/**").permitAll();
+        http.authorizeRequests().antMatchers("/**").authenticated();
+        //http.authorizeRequests().antMatchers("/**").permitAll();
 
     }
 
     private String getUserQuery(){
-        return "select username,password,enabled from user where username=?";
+        return "select username,password,enabled from oscra_user where username=?";
     }
 
     private String getAuthoritiesQuery(){
-        return "select username,role from user where username=?";
+        return "select username,role from oscra_user where username=?";
     }
 
     @Bean
