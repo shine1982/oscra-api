@@ -31,13 +31,13 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
     private RESTLogoutSuccessHandler logoutSuccessHandler;
 
     @Autowired
-    private DataSource restDataSource;
+    private DataSource dataSource;
 
 
     @Override
     protected void configure(AuthenticationManagerBuilder authbuilder) throws Exception {
         authbuilder.jdbcAuthentication()
-                    .dataSource(restDataSource)
+                    .dataSource(dataSource)
                     .passwordEncoder(passwordEncoder())
                     .usersByUsernameQuery(getUserQuery())
                     .authoritiesByUsernameQuery(getAuthoritiesQuery());
