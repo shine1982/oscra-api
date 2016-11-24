@@ -12,8 +12,6 @@ import static fr.ospiea.oscra.user.object.Role.USER;
 
 public interface UserDao extends PagingAndSortingRepository<User, Long> {
 
-    List<User> findByLastName(String lastName);
-    User findByEmail(String email);
-
+    User findByUsername(String lastName);
     List<User> findAllUsersByRole(Role role);
 }

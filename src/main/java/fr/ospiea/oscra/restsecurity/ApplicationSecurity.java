@@ -49,18 +49,18 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
                 .exceptionHandling()
                 .authenticationEntryPoint(authenticationEntryPoint)
                 .and()
-                .formLogin().loginPage("/login").permitAll()
+                .formLogin().loginPage("/api/login").permitAll()
                 .successHandler(authenticationSuccessHandler)
                 .failureHandler(authenticationFailureHandler)
                 .and()
                 .logout().permitAll()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout","POST"))
+                .logoutRequestMatcher(new AntPathRequestMatcher("/api/logout","POST"))
                 .logoutSuccessHandler(logoutSuccessHandler)
                 .and()
                 .sessionManagement()
                 .maximumSessions(1);
         http.authorizeRequests().antMatchers("/**").authenticated();
-        //http.authorizeRequests().antMatchers("/**").permitAll();
+        //shttp.authorizeRequests().antMatchers("/**").permitAll();
 
     }
 

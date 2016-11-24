@@ -17,7 +17,7 @@ import java.util.List;
 @Entity
 @Table(name = "oscra_user")
 public class User extends AbstractEntity implements Serializable{
-
+    @Column(unique=true)
     private String username;
     private String firstName;
     private String lastName;

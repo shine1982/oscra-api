@@ -1,6 +1,8 @@
 package fr.ospiea.oscra.restsecurity;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.ospiea.oscra.user.object.User;
+import fr.ospiea.oscra.user.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +25,13 @@ public class RESTAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuc
 
     private final ObjectMapper mapper;
 
-    @Autowired
     RESTAuthenticationSuccessHandler(MappingJackson2HttpMessageConverter messageConverter) {
         this.mapper = messageConverter.getObjectMapper();
     }
 
+
+    @Autowired
+    private UserService userService;
     /*
     * when success, should return status code 200
     *               should return authenticated user
@@ -35,19 +39,13 @@ public class RESTAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuc
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
-        System.out.println("================================================ User is connected ================================================");
-        System.out.println(authentication.getPrincipal());
-        response.getWriter().write(authentication.getPrincipal().toString());
+
+        User authenticatedUser = userService.findByUserame(request.getParameter("username"));
+        /* control of session http://www.journaldev.com/1907/java-session-management-servlet-httpsession-url-rewriting */
+        request.getSession(true);
+        response.getWriter().write(mapper.writeValueAsString(authenticatedUser));
         response.getWriter().flush();
         response.getWriter().close();
-        System.out.println(request);
-        System.out.println(request.getParameter("username"));
-        System.out.println(request.getSession());
-        System.out.println(request.getSession().getId());
-        System.out.println(response);
-        System.out.println(response);
-        //System.out.println(authentication.getPrincipal().getUser());
-
         clearAuthenticationAttributes(request);
 
     }

@@ -50,8 +50,8 @@ public class UserService {
         return userDao.findOne(userId);
     }
 
-    public User findByUserame(String email) {
-        return userDao.findByEmail(email);
+    public User findByUserame(String username) {
+        return userDao.findByUsername(username);
     }
 
     public User update(User user) {
