@@ -30,7 +30,6 @@ public class CraNotif extends AbstractNotifEntity implements Serializable{
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH})
     private User crato;
 
-    private String description;
 
     public CraNotif(Cra cra, User from, User to, NotifEntityStatus notifEntityStatus) {
         this.cra = cra;
@@ -61,14 +60,6 @@ public class CraNotif extends AbstractNotifEntity implements Serializable{
 
     public void setCrato(User crato) {
         this.crato = crato;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public Cra getCra() {

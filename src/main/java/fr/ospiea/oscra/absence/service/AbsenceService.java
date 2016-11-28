@@ -96,6 +96,7 @@ public class AbsenceService {
     private void checkToSendNotif(Absence result){
         switch (result.getStatus()){
             case TO_VALIDATE:
+
                 absenceNotifService.sendAbsenceNotif(result.getProvider(), result.getValidator(), result, NotifEntityStatus.TO_VALIDATE);
                 break;
             case AGREED:

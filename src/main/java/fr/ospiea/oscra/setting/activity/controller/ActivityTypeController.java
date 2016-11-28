@@ -44,4 +44,9 @@ public class ActivityTypeController {
     public void delete(@RequestParam long activityTypeId){
         activityTypeService.delete(activityTypeId);
     }
+
+    @RequestMapping(value = "/findById", method= RequestMethod.GET)
+    public ActivityType findById(@RequestParam long activityTypeId){
+        return activityTypeService.findById(activityTypeId);
+    }
 }

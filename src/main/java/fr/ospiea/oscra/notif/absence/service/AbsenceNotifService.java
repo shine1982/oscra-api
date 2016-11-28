@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -43,7 +44,9 @@ public class AbsenceNotifService {
     }
 
     private Pageable createPageRequest(int dstPage) {
-        return new PageRequest(dstPage, 10);
+        return new PageRequest(dstPage, 10, new Sort(
+                new Sort.Order(Sort.Direction.DESC, "updated")
+        ));
     }
 }
 

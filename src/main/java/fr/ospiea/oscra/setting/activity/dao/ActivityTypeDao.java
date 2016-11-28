@@ -11,6 +11,6 @@ import java.util.List;
  */
 public interface ActivityTypeDao extends CrudRepository<ActivityType, Long> {
     ActivityType findOneByName(String name);
-
+    ActivityType findById(Long id);
     List<ActivityType> findAllByCategory(String category);
 }

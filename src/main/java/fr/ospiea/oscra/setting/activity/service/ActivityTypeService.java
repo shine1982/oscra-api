@@ -51,4 +51,8 @@ public class ActivityTypeService {
         activityTypeDao.findAllByCategory(category).iterator().forEachRemaining(activitiesOfAbsence::add);
         return activitiesOfAbsence;
     }
+
+    public ActivityType findById(Long activityTypeId) {
+        return activityTypeDao.findById(activityTypeId);
+    }
 }

@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "oscra_absencenotif")
 public class AbsenceNotif extends AbstractNotifEntity implements Serializable {
-    private String description;
+
     @ManyToOne(fetch= FetchType.EAGER,
             cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name ="absence_id")
@@ -65,14 +65,6 @@ public class AbsenceNotif extends AbstractNotifEntity implements Serializable {
 
     public void setAbsenceto(User to) {
         this.absenceto = to;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public NotifEntityStatus getNotifEntityStatus(){
