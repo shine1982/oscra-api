@@ -7,6 +7,7 @@ import fr.ospiea.oscra.user.object.User;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by taozheng on 10/11/2016.
@@ -44,6 +45,10 @@ public class CraNotif extends AbstractNotifEntity implements Serializable{
 
     public Long getId(){
         return id;
+    }
+
+    public Date getUpdated(){
+        return updated;
     }
 
     public User getCrafrom() {

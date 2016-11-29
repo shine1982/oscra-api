@@ -94,16 +94,16 @@ public class AbsenceService {
     }
 
     private void checkToSendNotif(Absence result){
+        //User from, User to, Absence absence, NotifEntityStatus action
         switch (result.getStatus()){
             case TO_VALIDATE:
-
                 absenceNotifService.sendAbsenceNotif(result.getProvider(), result.getValidator(), result, NotifEntityStatus.TO_VALIDATE);
                 break;
             case AGREED:
-                absenceNotifService.sendAbsenceNotif(result.getProvider(), result.getValidator(), result, NotifEntityStatus.AGREED);
+                absenceNotifService.sendAbsenceNotif(result.getValidator(), result.getProvider(), result, NotifEntityStatus.AGREED);
                 break;
             case REFUSED:
-                absenceNotifService.sendAbsenceNotif(result.getProvider(), result.getValidator(), result, NotifEntityStatus.REFUESED);
+                absenceNotifService.sendAbsenceNotif(result.getValidator(), result.getProvider(),  result, NotifEntityStatus.REFUESED);
                 break;
         }
 

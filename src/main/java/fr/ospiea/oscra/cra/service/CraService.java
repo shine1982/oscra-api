@@ -98,15 +98,16 @@ public class CraService {
     }
 
     private void checkToSendNotif(Cra result){
+        //User from, User to, Cra cra, NotifEntityStatus action
         switch (result.getStatus()){
             case TRANSIMITTED_TO_VALIDATE:
                 craNotifService.sendCraNotif(result.getProvider(), result.getValidator(), result, NotifEntityStatus.TO_VALIDATE);
                 break;
             case TRANSIMITTED_AGREED:
-                craNotifService.sendCraNotif(result.getProvider(), result.getValidator(), result, NotifEntityStatus.AGREED);
+                craNotifService.sendCraNotif(result.getValidator(), result.getProvider(), result, NotifEntityStatus.AGREED);
                 break;
             case TRANSIMITTED_REFUSED:
-                craNotifService.sendCraNotif(result.getProvider(), result.getValidator(), result, NotifEntityStatus.REFUESED);
+                craNotifService.sendCraNotif(result.getValidator(), result.getProvider(),  result, NotifEntityStatus.REFUESED);
                 break;
         }
     }
