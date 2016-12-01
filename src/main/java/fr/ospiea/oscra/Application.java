@@ -41,6 +41,12 @@ public class Application extends SpringBootServletInitializer {
     }
 
     public static void main(String[] args) {
+
+        System.setProperty("javax.net.ssl.keyStore","./keystore");
+        System.setProperty("javax.net.ssl.keyStorePassword","changeit");
+        System.setProperty("javax.net.ssl.trustStore","./cacerts");
+        System.setProperty("javax.net.ssl.trustStorePassword","changeit");
+
         SpringApplication.run(Application.class);
     }
 
