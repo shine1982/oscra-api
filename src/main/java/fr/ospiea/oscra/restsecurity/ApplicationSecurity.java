@@ -59,8 +59,8 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
                 .and()
                 .sessionManagement()
                 .maximumSessions(1);
-        //http.authorizeRequests().antMatchers("/**").authenticated();
-        http.authorizeRequests().antMatchers("/**").permitAll();
+        http.authorizeRequests().antMatchers("/**").authenticated();
+        //http.authorizeRequests().antMatchers("/**").permitAll();
 
     }
 
